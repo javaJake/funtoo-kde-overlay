@@ -6,7 +6,4 @@
 		<email>voyageur@gentoo.org</email>
 		<name>Bernard Cafarelli</name>
 	</maintainer>
-	<upstream>
-		<remote-id type="sourceforge">kdiff3</remote-id>
-	</upstream>
 </pkgmetadata>

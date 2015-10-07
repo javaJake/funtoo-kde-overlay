@@ -31,6 +31,7 @@
 		-->
 		<flag name="sms">Enable SMS sendinge functionality.</flag>
 		<flag name="testbed">Enable the testbed protocol.</flag>
+		<flag name="xmpp">Enable XMPP protocol handler (this is also gmail).</flag>
 		<flag name="winpopup">Enable pop-up messages sending on windows. (same as good old "net send" messages ;])</flag>
 		<flag name="yahoo">Enable yahoo protocol support.</flag>
 		<flag name="zeroconf">Enable Link-Local Messaging via the bonjour protocol.</flag>
