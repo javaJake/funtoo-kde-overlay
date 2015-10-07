@@ -1,0 +1,13 @@
+# Upstream currently only maintains bindings in KDE/4.x branches
+# This is not likely to change in the future
+# Aside, they are sloppy in updating even for releases.
+>=kde-apps/marble-14.11.97 python
+
+# Unreleased dependencies
+=kde-apps/dolphin-15.08* thumbnail
+=kde-apps/gwenview-15.08* kipi raw
+=kde-apps/kdepim-15.08* prison
+=kde-apps/kdepimlibs-15.08* prison
+=kde-apps/spectacle-2* kipi
+=kde-frameworks/kwallet-5.13.0 gpg
+=kde-frameworks/kwallet-5.14.0 gpg
