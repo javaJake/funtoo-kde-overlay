@@ -6,7 +6,7 @@ EAPI=5
 
 KDEBASE="kdevelop"
 KMNAME="kdev-python"
-PYTHON_COMPAT=( python3_4 )
+PYTHON_COMPAT=( python3_5 )
 inherit kde5 python-any-r1
 
 DESCRIPTION="Python plugin for KDevelop 5"
@@ -45,9 +45,9 @@ pkg_setup() {
 }
 
 src_compile() {
-	pushd "${WORKDIR}"/${P}_build > /dev/null
+	pushd "${WORKDIR}"/${P}_build > /dev/null || die
 	emake parser
-	popd > /dev/null
+	popd > /dev/null || die
 
 	kde5_src_compile
 }
