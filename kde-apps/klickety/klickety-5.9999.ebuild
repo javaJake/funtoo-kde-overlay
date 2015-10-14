@@ -4,7 +4,8 @@
 
 EAPI=5
 
-KDE_HANDBOOK=true
+KDE_HANDBOOK="true"
+KDE_PUNT_BOGUS_DEPS="true"
 KDE_SELINUX_MODULE="games"
 EGIT_BRANCH="frameworks"
 inherit kde5
@@ -17,7 +18,6 @@ DEPEND="
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
-	$(add_frameworks_dep kdelibs4support)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kio)
 	$(add_frameworks_dep knotifications)
