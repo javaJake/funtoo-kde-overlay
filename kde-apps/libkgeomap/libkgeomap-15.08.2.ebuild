@@ -11,6 +11,7 @@ DESCRIPTION="Wrapper library for world map components as marble, openstreetmap a
 HOMEPAGE="https://www.digikam.org/"
 
 LICENSE="GPL-2"
+SLOT="4/2.1"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
@@ -18,6 +19,4 @@ DEPEND="
 	kde-apps/libkexiv2:4=
 	kde-apps/marble:4=[kde,plasma]
 "
-RDEPEND="${DEPEND}
-	!media-libs/libkgeomap
-"
+RDEPEND="${DEPEND}"
