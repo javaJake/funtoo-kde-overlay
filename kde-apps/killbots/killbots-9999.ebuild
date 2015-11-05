@@ -4,7 +4,7 @@
 
 EAPI=5
 
-KDE_HANDBOOK=true
+KDE_HANDBOOK="forceoptional"
 inherit kde5
 
 DESCRIPTION="Kill the bots or they kill you!"
@@ -26,3 +26,5 @@ DEPEND="
 	dev-qt/qtwidgets:5
 "
 RDEPEND="${DEPEND}"
+
+DOCS=()
