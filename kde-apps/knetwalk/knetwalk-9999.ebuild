@@ -4,7 +4,7 @@
 
 EAPI=5
 
-KDE_HANDBOOK="true"
+KDE_HANDBOOK="forceoptional"
 KDE_TEST="true"
 VIRTUALX_REQUIRED="test"
 inherit kde5
@@ -28,6 +28,7 @@ DEPEND="
 	$(add_frameworks_dep kio)
 	$(add_frameworks_dep kitemviews)
 	$(add_frameworks_dep knotifyconfig)
+	$(add_frameworks_dep ktextwidgets)
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kxmlgui)
 	$(add_kdeapps_dep libkdegames)
