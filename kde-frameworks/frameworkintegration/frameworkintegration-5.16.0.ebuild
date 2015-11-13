@@ -4,6 +4,7 @@
 
 EAPI=5
 
+QT_MINIMAL="5.5.1"
 VIRTUALX_REQUIRED="test"
 inherit kde5
 
