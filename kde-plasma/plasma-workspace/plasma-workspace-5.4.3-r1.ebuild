@@ -11,7 +11,7 @@ VIRTUALX_REQUIRED="test"
 inherit kde5 multilib pam qmake-utils
 
 DESCRIPTION="KDE Plasma workspace"
-KEYWORDS=""
+KEYWORDS=" ~amd64 ~x86"
 IUSE="dbus +drkonqi +geolocation gps pam prison qalculate +systemmonitor"
 
 COMMON_DEPEND="
