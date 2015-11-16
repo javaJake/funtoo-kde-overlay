@@ -4,19 +4,19 @@
 
 EAPI=5
 
-VIRTUALX_REQUIRED="test"
 inherit kde5
 
-DESCRIPTION="Framework for common completion tasks such as filename or URL completion"
-KEYWORDS="~amd64 ~x86"
-IUSE="nls"
+DESCRIPTION="Thumbnail generator for PO files"
+KEYWORDS=""
+IUSE=""
 
-RDEPEND="
+DEPEND="
 	$(add_frameworks_dep kconfig)
+	$(add_frameworks_dep ki18n)
+	$(add_frameworks_dep kio)
 	$(add_frameworks_dep kwidgetsaddons)
 	dev-qt/qtgui:5
 	dev-qt/qtwidgets:5
+	sys-devel/gettext
 "
-DEPEND="${RDEPEND}
-	nls? ( dev-qt/linguist-tools:5 )
-"
+RDEPEND="${DEPEND}"
