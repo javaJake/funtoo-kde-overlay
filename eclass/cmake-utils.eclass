@@ -112,23 +112,25 @@ CMAKE_REMOVE_MODULES="${CMAKE_REMOVE_MODULES:-yes}"
 # for econf and is needed to pass TRY_RUN results when cross-compiling.
 # Should be set by user in a per-package basis in /etc/portage/package.env.
 
+case ${EAPI} in
+	2|3|4|5|6) : ;;
+	*) die "EAPI=${EAPI:-0} is not supported" ;;
+esac
+
+inherit toolchain-funcs multilib flag-o-matic eutils versionator
+
+EXPORT_FUNCTIONS src_prepare src_configure src_compile src_test src_install
+
 CMAKEDEPEND=""
 case ${WANT_CMAKE} in
 	always)
 		;;
 	*)
+		! has "${EAPI:-0}" 2 3 4 5 && die "WANT_CMAKE is banned in EAPI 6 and later"
 		IUSE+=" ${WANT_CMAKE}"
 		CMAKEDEPEND+="${WANT_CMAKE}? ( "
 		;;
 esac
-inherit toolchain-funcs multilib flag-o-matic eutils versionator
-
-case ${EAPI} in
-	2|3|4|5) : ;;
-	*) die "EAPI=${EAPI:-0} is not supported" ;;
-esac
-
-EXPORT_FUNCTIONS src_prepare src_configure src_compile src_test src_install
 
 case ${CMAKE_MAKEFILE_GENERATOR} in
 	emake)
@@ -218,7 +220,7 @@ _check_build_dir() {
 	# Backwards compatibility for getting the value.
 	CMAKE_BUILD_DIR=${BUILD_DIR}
 
-	mkdir -p "${BUILD_DIR}"
+	mkdir -p "${BUILD_DIR}" || die
 	echo ">>> Working in BUILD_DIR: \"$BUILD_DIR\""
 }
 
@@ -395,16 +397,47 @@ _modify-cmakelists() {
 	_EOF_
 }
 
+# temporary function for moving cmake cleanups from from src_configure -> src_prepare.
+# bug #378850
+_cleanup_cmake() {
+	: ${CMAKE_USE_DIR:=${S}}
+
+	[[ "${CMAKE_REMOVE_MODULES}" == "yes" ]] && {
+		local name
+		for name in ${CMAKE_REMOVE_MODULES_LIST} ; do
+			find "${S}" -name ${name}.cmake -exec rm -v {} + || die
+		done
+	}
+
+	# check if CMakeLists.txt exist and if no then die
+	if [[ ! -e ${CMAKE_USE_DIR}/CMakeLists.txt ]] ; then
+		eerror "Unable to locate CMakeLists.txt under:"
+		eerror "\"${CMAKE_USE_DIR}/CMakeLists.txt\""
+		eerror "Consider not inheriting the cmake eclass."
+		die "FATAL: Unable to find CMakeLists.txt"
+	fi
+
+	# Remove dangerous things.
+	_modify-cmakelists
+}
+
 enable_cmake-utils_src_prepare() {
 	debug-print-function ${FUNCNAME} "$@"
 
 	pushd "${S}" > /dev/null || die
 
-	debug-print "$FUNCNAME: PATCHES=$PATCHES"
-	[[ ${PATCHES[@]} ]] && epatch "${PATCHES[@]}"
+	if has "${EAPI:-0}" 6 ; then
+		_cleanup_cmake
+		default_src_prepare
+	fi
 
-	debug-print "$FUNCNAME: applying user patches"
-	epatch_user
+	if has "${EAPI:-0}" 2 3 4 5 ; then
+		debug-print "$FUNCNAME: PATCHES=$PATCHES"
+		[[ ${PATCHES[@]} ]] && epatch "${PATCHES[@]}"
+
+		debug-print "$FUNCNAME: applying user patches"
+		epatch_user
+	fi
 
 	popd > /dev/null || die
 }
@@ -427,28 +460,12 @@ enable_cmake-utils_src_prepare() {
 enable_cmake-utils_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	[[ "${CMAKE_REMOVE_MODULES}" == "yes" ]] && {
-		local name
-		for name in ${CMAKE_REMOVE_MODULES_LIST} ; do
-			find "${S}" -name ${name}.cmake -exec rm -v {} +
-		done
-	}
+	has "${EAPI:-0}" 2 3 4 5 && _cleanup_cmake
 
 	_check_build_dir
 
-	# check if CMakeLists.txt exist and if no then die
-	if [[ ! -e ${CMAKE_USE_DIR}/CMakeLists.txt ]] ; then
-		eerror "Unable to locate CMakeLists.txt under:"
-		eerror "\"${CMAKE_USE_DIR}/CMakeLists.txt\""
-		eerror "Consider not inheriting the cmake eclass."
-		die "FATAL: Unable to find CMakeLists.txt"
-	fi
-
-	# Remove dangerous things.
-	_modify-cmakelists
-
 	# Fix xdg collision with sandbox
-	export XDG_CONFIG_HOME="${T}"
+	local -x XDG_CONFIG_HOME="${T}"
 
 	# @SEE CMAKE_BUILD_TYPE
 	if [[ ${CMAKE_BUILD_TYPE} = Gentoo ]]; then
@@ -519,7 +536,7 @@ enable_cmake-utils_src_configure() {
 		fi
 	fi
 
-	has "${EAPI:-0}" 0 1 2 && ! use prefix && EPREFIX=
+	has "${EAPI:-0}" 0 1 2 && ! use prefix && local EPREFIX=
 
 	if [[ ${EPREFIX} ]]; then
 		cat >> "${build_rules}" <<- _EOF_ || die
