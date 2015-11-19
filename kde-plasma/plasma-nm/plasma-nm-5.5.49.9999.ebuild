@@ -32,6 +32,7 @@ DEPEND="
 	$(add_frameworks_dep networkmanager-qt 'teamd=')
 	$(add_frameworks_dep plasma)
 	$(add_frameworks_dep solid)
+	>=app-crypt/qca-2.1.0.3-r1:2[qt5]
 	dev-qt/qtdbus:5
 	dev-qt/qtdeclarative:5
 	dev-qt/qtgui:5
@@ -50,7 +51,7 @@ DEPEND="
 	)
 "
 RDEPEND="${DEPEND}
-	$(add_plasma_dep plasma-workspace 'systemmonitor')
+	$(add_plasma_dep plasma-workspace)
 	!kde-misc/plasma-nm
 "
 

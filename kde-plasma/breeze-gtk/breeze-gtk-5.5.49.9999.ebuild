@@ -4,17 +4,9 @@
 
 EAPI=5
 
-KDE_BLOCK_SLOT4="false"
 inherit kde5
 
-DESCRIPTION="C++ bindings for gpgme"
-LICENSE="LGPL-2+"
+DESCRIPTION="Official GTK+ port of KDE's Breeze widget style"
+HOMEPAGE="https://projects.kde.org/projects/kde/workspace/breeze-gtk"
 KEYWORDS=""
 IUSE=""
-
-RDEPEND="
-	app-crypt/gpgme:=
-"
-DEPEND="${RDEPEND}
-	dev-libs/boost
-"

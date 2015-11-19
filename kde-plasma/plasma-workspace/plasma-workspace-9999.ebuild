@@ -12,14 +12,9 @@ inherit kde5 multilib qmake-utils
 
 DESCRIPTION="KDE Plasma workspace"
 KEYWORDS=""
-IUSE="dbus +drkonqi +geolocation gps prison qalculate"
+IUSE="dbus +geolocation gps prison qalculate"
 
 COMMON_DEPEND="
-	$(add_plasma_dep kscreenlocker)
-	$(add_plasma_dep kwayland)
-	$(add_plasma_dep kwin)
-	$(add_plasma_dep libkscreen)
-	$(add_plasma_dep libksysguard)
 	$(add_frameworks_dep baloo)
 	$(add_frameworks_dep kactivities)
 	$(add_frameworks_dep kauth)
@@ -59,6 +54,7 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kxmlrpcclient)
 	$(add_frameworks_dep plasma)
 	$(add_frameworks_dep solid)
+	$(add_plasma_dep kscreenlocker)
 	$(add_plasma_dep kwayland)
 	$(add_plasma_dep kwin)
 	$(add_plasma_dep libkscreen)
@@ -83,10 +79,6 @@ COMMON_DEPEND="
 	x11-libs/libXfixes
 	x11-libs/libXrender
 	dbus? ( dev-libs/libdbusmenu-qt[qt5] )
-	drkonqi? (
-		$(add_frameworks_dep kdewebkit)
-		dev-qt/qtwebkit:5
-	)
 	geolocation? ( $(add_frameworks_dep networkmanager-qt) )
 	gps? ( sci-geosciences/gpsd )
 	prison? ( media-libs/prison:5 )
@@ -133,22 +125,12 @@ src_prepare() {
 
 	sed -e "s|\`qtpaths|\`$(qt5_get_bindir)/qtpaths|" \
 		-i startkde/startkde.cmake startkde/startplasmacompositor.cmake || die
-
-	if ! use drkonqi; then
-		comment_add_subdirectory drkonqi
-	fi
-
-	if ! use geolocation; then
-		punt_bogus_dep KF5 NetworkManagerQt
-		pushd dataengines > /dev/null || die
-			comment_add_subdirectory geolocation
-		popd > /dev/null || die
-	fi
 }
 
 src_configure() {
 	local mycmakeargs=(
 		$(cmake-utils_use_find_package dbus dbusmenu-qt5)
+		$(cmake-utils_use_find_package geolocation KF5NetworkManagerQt)
 		$(cmake-utils_use_find_package gps libgps)
 		$(cmake-utils_use_find_package prison)
 		$(cmake-utils_use_find_package qalculate Qalculate)

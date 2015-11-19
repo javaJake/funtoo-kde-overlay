@@ -21,6 +21,7 @@ DEPEND="
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kwindowsystem)
+	$(add_frameworks_dep plasma)
 	$(add_plasma_dep kdecoration)
 	dev-qt/qtdbus:5
 	dev-qt/qtgui:5
@@ -33,22 +34,13 @@ DEPEND="
 	)
 "
 RDEPEND="${DEPEND}
-	$(add_frameworks_dep breeze-icons '' '5.4.3')
+	$(add_frameworks_dep breeze-icons)
 	$(add_plasma_dep kde-cli-tools)
 "
 
 pkg_setup() {
 	kde5_pkg_setup
 	MULTIBUILD_VARIANTS=( kf5 $(usev qt4) )
-}
-
-src_prepare() {
-	# Disable icons packaged separately in kde-frameworks/breeze-icons
-	sed -i \
-		-e "/add_subdirectory(icons/ s/^/#/" \
-		CMakeLists.txt
-
-	kde5_src_prepare
 }
 
 src_configure() {

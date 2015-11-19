@@ -8,7 +8,6 @@ KDE_AUTODEPS="false"
 inherit kde5
 
 DESCRIPTION="KWallet PAM module to not enter password again"
-
 LICENSE="LGPL-2.1"
 KEYWORDS=""
 IUSE=""

@@ -8,11 +8,11 @@ KDE_HANDBOOK="true"
 KDE_PUNT_BOGUS_DEPS="true"
 KDE_TEST="true"
 VIRTUALX_REQUIRED="test"
-inherit kde5 multilib pam qmake-utils
+inherit kde5 multilib qmake-utils
 
 DESCRIPTION="KDE Plasma workspace"
 KEYWORDS=""
-IUSE="dbus +drkonqi +geolocation gps pam prison qalculate +systemmonitor"
+IUSE="dbus +geolocation gps prison qalculate"
 
 COMMON_DEPEND="
 	$(add_frameworks_dep baloo)
@@ -54,11 +54,11 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kxmlrpcclient)
 	$(add_frameworks_dep plasma)
 	$(add_frameworks_dep solid)
+	$(add_plasma_dep kscreenlocker)
 	$(add_plasma_dep kwayland)
 	$(add_plasma_dep kwin)
 	$(add_plasma_dep libkscreen)
 	$(add_plasma_dep libksysguard)
-	dev-libs/wayland
 	dev-qt/qtconcurrent:5
 	dev-qt/qtdbus:5
 	dev-qt/qtdeclarative:5[widgets]
@@ -77,27 +77,18 @@ COMMON_DEPEND="
 	x11-libs/libXau
 	x11-libs/libxcb
 	x11-libs/libXfixes
-	x11-libs/libXi
 	x11-libs/libXrender
-	x11-libs/xcb-util-keysyms
 	dbus? ( dev-libs/libdbusmenu-qt[qt5] )
-	drkonqi? (
-		$(add_frameworks_dep kdewebkit)
-		dev-qt/qtwebkit:5
-	)
 	geolocation? ( $(add_frameworks_dep networkmanager-qt) )
 	gps? ( sci-geosciences/gpsd )
-	pam? ( virtual/pam )
 	prison? ( media-libs/prison:5 )
 	qalculate? ( sci-libs/libqalculate )
-	systemmonitor? (
-		$(add_plasma_dep libksysguard processui)
-	)
 "
 RDEPEND="${COMMON_DEPEND}
 	$(add_frameworks_dep kded)
 	$(add_kdeapps_dep kio-extras)
 	$(add_plasma_dep kde-cli-tools)
+	$(add_plasma_dep ksysguard)
 	$(add_plasma_dep milou)
 	dev-qt/qdbus:5
 	dev-qt/qtpaths:5
@@ -108,12 +99,9 @@ RDEPEND="${COMMON_DEPEND}
 	x11-apps/xrdb
 	x11-apps/xset
 	x11-apps/xsetroot
-	systemmonitor? ( $(add_plasma_dep ksysguard) )
 	!kde-base/freespacenotifier:4
 	!kde-base/libtaskmanager:4
-	!<kde-base/kcheckpass-4.11.22-r1:4
 	!kde-base/kcminit:4
-	!kde-base/kdebase-pam:4
 	!kde-base/kdebase-startkde:4
 	!kde-base/klipper:4
 	!kde-base/krunner:4
@@ -125,12 +113,7 @@ DEPEND="${COMMON_DEPEND}
 	x11-proto/xproto
 "
 
-PATCHES=(
-	"${FILESDIR}/${PN}-5.4-startkde-script.patch"
-	"${FILESDIR}/${PN}-5.4-consolekit2.patch"
-	"${FILESDIR}/${PN}-5.4.3-fix-drkonqi.patch"	#Upstream bug 354110
-	"${FILESDIR}/${PN}-5.4.3-no-SUID-no-GUID.patch"
-)
+PATCHES=( "${FILESDIR}/${PN}-5.4-startkde-script.patch" )
 
 RESTRICT="test"
 
@@ -143,31 +126,16 @@ src_prepare() {
 	sed -e "s|\`qtpaths|\`$(qt5_get_bindir)/qtpaths|" \
 		-i startkde/startkde.cmake startkde/startplasmacompositor.cmake || die
 
-	if ! use drkonqi; then
-		comment_add_subdirectory drkonqi
-	fi
-
 	if ! use geolocation; then
 		punt_bogus_dep KF5 NetworkManagerQt
 		pushd dataengines > /dev/null || die
 			comment_add_subdirectory geolocation
 		popd > /dev/null || die
 	fi
-
-	if ! use systemmonitor; then
-		comment_add_subdirectory systemmonitor
-		pushd applets > /dev/null || die
-			comment_add_subdirectory systemmonitor
-		popd > /dev/null || die
-		pushd dataengines > /dev/null || die
-			comment_add_subdirectory systemmonitor
-		popd > /dev/null || die
-	fi
 }
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_find_package pam)
 		$(cmake-utils_use_find_package dbus dbusmenu-qt5)
 		$(cmake-utils_use_find_package gps libgps)
 		$(cmake-utils_use_find_package prison)
@@ -180,20 +148,12 @@ src_configure() {
 src_install() {
 	kde5_src_install
 
-	newpamd "${FILESDIR}/kde.pam" kde
-	newpamd "${FILESDIR}/kde-np.pam" kde-np
-
 	# startup and shutdown scripts
 	insinto /etc/plasma/startup
 	doins "${FILESDIR}/agent-startup.sh"
 
 	insinto /etc/plasma/shutdown
 	doins "${FILESDIR}/agent-shutdown.sh"
-
-	if ! use pam; then
-		chown root "${ED}"usr/$(get_libdir)/libexec/kcheckpass || die
-		chmod +s "${ED}"usr/$(get_libdir)/libexec/kcheckpass || die
-	fi
 }
 
 pkg_postinst () {
