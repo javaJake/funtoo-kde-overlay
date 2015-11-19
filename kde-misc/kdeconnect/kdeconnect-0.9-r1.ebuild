@@ -4,18 +4,18 @@
 
 EAPI=5
 
-MY_PN=${PN}-kde
-KMNAME=${MY_PN}
+KDE_HANDBOOK="true"
 KDE_TEST="true"
+KMNAME="${PN}-kde"
 inherit kde5
 
 DESCRIPTION="Adds communication between KDE and your smartphone"
-HOMEPAGE="http://www.kde.org/"
-
-SRC_URI="mirror://kde/unstable/${PN}/${PV}/src/${MY_PN}-${PV}.tar.xz"
-KEYWORDS="~amd64"
+HOMEPAGE="https://www.kde.org/ https://community.kde.org/KDEConnect"
+SRC_URI="mirror://kde/unstable/${PN}/${PV}/src/${KMNAME}-${PV}f.tar.xz"
 
 LICENSE="GPL-2+"
+KEYWORDS="~amd64"
+IUSE="app +telepathy wayland"
 
 DEPEND="
 	$(add_frameworks_dep kcmutils)
@@ -27,29 +27,51 @@ DEPEND="
 	$(add_frameworks_dep kiconthemes)
 	$(add_frameworks_dep kio)
 	$(add_frameworks_dep knotifications)
+	$(add_frameworks_dep kservice)
+	$(add_frameworks_dep kwidgetsaddons)
 	>=app-crypt/qca-2.1.0:2[qt5,openssl]
 	dev-qt/qtdbus:5
 	dev-qt/qtdeclarative:5
 	dev-qt/qtgui:5
 	dev-qt/qtnetwork:5
 	dev-qt/qtwidgets:5
+	dev-qt/qtx11extras:5
 	x11-libs/libfakekey
+	x11-libs/libX11
+	x11-libs/libXtst
+	app? ( $(add_frameworks_dep kdeclarative) )
+	telepathy? ( >=net-libs/telepathy-qt-0.9.7[qt5] )
+	wayland? ( $(add_plasma_dep kwayland) )
 "
 RDEPEND="${DEPEND}
 	$(add_plasma_dep plasma-workspace)
+	wayland? ( $(add_plasma_dep kwin) )
 	!kde-misc/kdeconnect:4
 "
-
-[[ ${KDE_BUILD_TYPE} != live ]] && S=${WORKDIR}/${MY_PN}-${PV}
 
 src_prepare() {
 	sed \
 		-e 's#${LIBEXEC_INSTALL_DIR}#@KDE_INSTALL_FULL_LIBEXECDIR@#' \
-		-i daemon/kdeconnectd.desktop.cmake
-	default
+		-i daemon/kdeconnectd.desktop.cmake || die
+
+	kde5_src_prepare
+}
+
+src_configure() {
+	local mycmakeargs=(
+		-DEXPERIMENTALAPP_ENABLED=$(usex app)
+		$(cmake-utils_use_find_package handbook KF5DocTools)
+		$(cmake-utils_use_find_package telepathy TelepathyQt5)
+		$(cmake-utils_use_find_package telepathy TelepathyQt5Service)
+		$(cmake-utils_use_find_package wayland KF5Wayland)
+	)
+
+	kde5_src_configure
 }
 
 pkg_postinst(){
+	kde5_pkg_postinst
+
 	elog
 	elog "Optional dependency:"
 	elog "sys-fs/sshfs-fuse (for 'remote filesystem browser' plugin)"
