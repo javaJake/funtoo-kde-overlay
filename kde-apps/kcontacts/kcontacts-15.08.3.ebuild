@@ -6,6 +6,7 @@ EAPI=5
 
 KDE_DOXYGEN="true"
 KDE_TEST="true"
+VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="Address book API for KDE"
@@ -22,3 +23,12 @@ RDEPEND="
 	dev-qt/qtgui:5
 "
 DEPEND="${RDEPEND}"
+
+src_prepare() {
+	kde5_src_prepare
+
+	# FIXME: Fails test because access to /dev/dri/card0 is denied
+	sed -i \
+		-e "/ecm_add_tests/ s/picturetest\.cpp //" \
+		autotests/CMakeLists.txt || die
+}
