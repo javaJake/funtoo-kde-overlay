@@ -4,8 +4,8 @@
 
 EAPI=5
 
-KDE_HANDBOOK="true"
-KDE_TEST="true"
+KDE_HANDBOOK="forceoptional"
+KDE_TEST="forceoptional"
 inherit kde5
 
 DESCRIPTION="KDE UML Modeller"
@@ -21,6 +21,7 @@ RDEPEND="
 	$(add_frameworks_dep kauth)
 	$(add_frameworks_dep kcompletion)
 	$(add_frameworks_dep kconfig)
+	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
 	$(add_frameworks_dep kdoctools)
 	$(add_frameworks_dep kguiaddons)
@@ -28,9 +29,11 @@ RDEPEND="
 	$(add_frameworks_dep kiconthemes)
 	$(add_frameworks_dep kinit)
 	$(add_frameworks_dep kio)
+	$(add_frameworks_dep kjobwidgets)
 	$(add_frameworks_dep kparts)
 	$(add_frameworks_dep kservice)
 	$(add_frameworks_dep ktexteditor)
+	$(add_frameworks_dep ktextwidgets)
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
@@ -48,6 +51,7 @@ DEPEND="${RDEPEND}"
 src_configure() {
 	local mycmakeargs=(
 		-DBUILD_KF5=ON
+		-DBUILD_unittests=$(usex test)
 	)
 
 	kde5_src_configure
