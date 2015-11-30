@@ -5,7 +5,7 @@
 EAPI=5
 
 KDE_BLOCK_SLOT4="false"
-KDE_HANDBOOK="true"
+KDE_HANDBOOK="forceoptional"
 inherit kde5
 
 DESCRIPTION="KDE Wallet management tool"
@@ -13,6 +13,7 @@ KEYWORDS=" ~amd64 ~x86"
 IUSE=""
 
 DEPEND="
+	$(add_frameworks_dep karchive)
 	$(add_frameworks_dep kauth)
 	$(add_frameworks_dep kcmutils)
 	$(add_frameworks_dep kcodecs)
