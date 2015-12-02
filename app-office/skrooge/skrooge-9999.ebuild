@@ -63,11 +63,8 @@ DEPEND="${COMMON_DEPEND}
 	$(add_frameworks_dep kguiaddons)
 	$(add_frameworks_dep kjobwidgets)
 	$(add_frameworks_dep kwindowsystem)
-	dev-libs/boost
 	dev-libs/libxslt
-	dev-libs/qjson
 	dev-qt/designer:5
-	dev-qt/qtnetwork:5
 	virtual/pkgconfig
 	x11-misc/shared-mime-info
 "
@@ -75,15 +72,11 @@ RDEPEND="${COMMON_DEPEND}
 	!app-office/skrooge:4
 "
 
-# upstream does not ship tests in releases
-if [[ ${KDE_BUILD_TYPE} != live ]]; then
-	RESTRICT="test"
-fi
-
 DOCS=( AUTHORS CHANGELOG README TODO )
 
 src_configure() {
 	local mycmakeargs=(
+		-DSKG_BUILD_TEST=$(usex test)
 		-DSKG_CIPHER=$(usex crypt)
 		$(cmake-utils_use_find_package activities KF5Activities)
 		$(cmake-utils_use_find_package ofx LibOfx)
