@@ -5,11 +5,12 @@
 EAPI=5
 
 KDE_AUTODEPS="false"
-inherit kde5 multilib
+inherit kde5
 
 DESCRIPTION="KWallet PAM module to not enter password again"
+
 LICENSE="LGPL-2.1"
-KEYWORDS=""
+KEYWORDS=" ~amd64 ~x86"
 IUSE=""
 
 DEPEND="
@@ -19,11 +20,3 @@ DEPEND="
 RDEPEND="${DEPEND}
 	net-misc/socat
 "
-
-src_configure() {
-	local mycmakeargs=(
-		-DCMAKE_INSTALL_LIBDIR="/$(get_libdir)"
-	)
-
-	kde5_src_configure
-}
