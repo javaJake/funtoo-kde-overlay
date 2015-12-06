@@ -26,3 +26,8 @@ DEPEND="
 	dev-qt/qtwidgets:5
 "
 RDEPEND="${DEPEND}"
+
+PATCHES=(
+	"${FILESDIR}/${P}-dont-block-plasmashell.patch"
+	"${FILESDIR}/${P}-drkonqi-integration.patch"
+)

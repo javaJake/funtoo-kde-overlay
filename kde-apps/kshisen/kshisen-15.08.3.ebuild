@@ -4,7 +4,7 @@
 
 EAPI=5
 
-KDE_HANDBOOK=true
+KDE_HANDBOOK="forceoptional"
 KDE_SELINUX_MODULE="games"
 inherit kde5
 
@@ -30,3 +30,9 @@ DEPEND="
 	dev-qt/qtwidgets:5
 "
 RDEPEND="${DEPEND}"
+
+src_prepare() {
+	epatch "${FILESDIR}/${P}-backport-fixes.patch"
+
+	kde5_src_prepare
+}

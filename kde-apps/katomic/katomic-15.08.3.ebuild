@@ -29,3 +29,9 @@ DEPEND="
 	dev-qt/qtwidgets:5
 "
 RDEPEND="${DEPEND}"
+
+src_prepare() {
+	epatch "${FILESDIR}/${P}-backport-fixes.patch"
+
+	kde5_src_prepare
+}

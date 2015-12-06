@@ -4,30 +4,32 @@
 
 EAPI=5
 
-KDE_HANDBOOK=true
+KDE_DOXYGEN="true"
+KDE_HANDBOOK="forceoptional"
+KDE_TEST="true"
 inherit kde5
 
-DESCRIPTION="KDE four-in-a-row game"
-HOMEPAGE="
-	https://www.kde.org/applications/games/kfourinline/
-	https://games.kde.org/game.php?game=kfourinline
-"
+DESCRIPTION="KDE calculator"
+HOMEPAGE="https://www.kde.org/applications/utilities/kcalc
+https://utils.kde.org/projects/kcalc"
 KEYWORDS=" ~amd64 ~x86"
 IUSE=""
 
-DEPEND="
-	$(add_frameworks_dep kcompletion)
+COMMON_DEPEND="
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
-	$(add_frameworks_dep kdelibs4support)
-	$(add_frameworks_dep kdnssd)
+	$(add_frameworks_dep kguiaddons)
 	$(add_frameworks_dep ki18n)
+	$(add_frameworks_dep knotifications)
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kxmlgui)
-	$(add_kdeapps_dep libkdegames)
+	dev-libs/gmp:0
 	dev-qt/qtgui:5
-	dev-qt/qtsvg:5
 	dev-qt/qtwidgets:5
+	dev-qt/qtxml:5
 "
-RDEPEND="${DEPEND}"
+DEPEND="${COMMON_DEPEND}
+	dev-libs/mpfr:0
+"
+RDEPEND="${COMMON_DEPEND}"

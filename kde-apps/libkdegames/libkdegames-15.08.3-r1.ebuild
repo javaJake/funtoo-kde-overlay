@@ -5,7 +5,8 @@
 EAPI=5
 
 KDE_BLOCK_SLOT4="false"
-KDE_TEST="true"
+KDE_DOXYGEN="true"
+KDE_TEST="forceoptional"
 VIRTUALX_REQUIRED="test"
 inherit kde5
 
@@ -24,6 +25,7 @@ DEPEND="
 	$(add_frameworks_dep kcrash)
 	$(add_frameworks_dep kdbusaddons)
 	$(add_frameworks_dep kdeclarative)
+	$(add_frameworks_dep kdelibs4support)
 	$(add_frameworks_dep kdnssd)
 	$(add_frameworks_dep kglobalaccel)
 	$(add_frameworks_dep kguiaddons)
@@ -42,10 +44,9 @@ DEPEND="
 	dev-qt/qtnetwork:5
 	dev-qt/qtwidgets:5
 	dev-qt/qtsvg:5
+	dev-qt/qtxml:5
 	media-libs/libsndfile
 	media-libs/openal
 "
 
 RDEPEND="${DEPEND}"
-
-PATCHES=( "${FILESDIR}/${PN}-15.04.3-tests-optional.patch" )
