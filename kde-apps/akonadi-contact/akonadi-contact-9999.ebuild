@@ -46,11 +46,14 @@ DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 "
 RDEPEND="${COMMON_DEPEND}
+	!<kde-apps/kdepim-15.12.50
 	!kde-apps/kdepimlibs
 	!kde-base/kdepimlibs:4
 "
 
-S="${WORKDIR}/${P}/${PN}"
+if [[ ${KDE_BUILD_TYPE} = live ]] ; then
+	S="${WORKDIR}/${P}/${PN}"
+fi
 
 src_configure() {
 	local mycmakeargs=(

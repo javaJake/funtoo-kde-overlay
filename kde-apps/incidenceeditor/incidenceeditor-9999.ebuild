@@ -4,7 +4,6 @@
 
 EAPI=5
 
-MY_PN="${PN}-ng"
 KDE_TEST="true"
 KMNAME="kdepim"
 inherit kde5
@@ -38,6 +37,7 @@ COMMON_DEPEND="
 	$(add_kdeapps_dep kcalcore)
 	$(add_kdeapps_dep kcalutils)
 	$(add_kdeapps_dep kcontacts)
+	$(add_kdeapps_dep kdepim-apps-lib)
 	$(add_kdeapps_dep kdgantt2)
 	$(add_kdeapps_dep kidentitymanagement)
 	$(add_kdeapps_dep kldap)
@@ -45,7 +45,6 @@ COMMON_DEPEND="
 	$(add_kdeapps_dep kmime)
 	$(add_kdeapps_dep libakonadi)
 	$(add_kdeapps_dep libkdepim)
-	$(add_kdeapps_dep libkdepimdbusinterfaces)
 	dev-qt/designer:5
 	dev-qt/qtdbus:5
 	dev-qt/qtgui:5
@@ -60,4 +59,4 @@ RDEPEND="${COMMON_DEPEND}
 	!kde-base/kdepim-common-libs:4
 "
 
-S="${WORKDIR}/${P}/${MY_PN}"
+S="${WORKDIR}/${P}/${PN}"
