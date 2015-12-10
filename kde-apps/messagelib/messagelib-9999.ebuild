@@ -5,7 +5,6 @@
 EAPI=5
 
 KDE_TEST="true"
-KMNAME="kdepim"
 inherit kde5
 
 DESCRIPTION="Libraries for messaging functions"
@@ -44,7 +43,7 @@ COMMON_DEPEND="
 	$(add_kdeapps_dep incidenceeditor)
 	$(add_kdeapps_dep kcalcore)
 	$(add_kdeapps_dep kcontacts)
-	$(add_kdeapps_dep kdepim-apps-lib)
+	$(add_kdeapps_dep kdepim-apps-libs)
 	$(add_kdeapps_dep kidentitymanagement)
 	$(add_kdeapps_dep kldap)
 	$(add_kdeapps_dep kmailtransport)
@@ -77,8 +76,6 @@ RDEPEND="${COMMON_DEPEND}
 	!kde-base/kdepim-common-libs:4
 	!kde-base/kmail:4
 "
-
-S="${WORKDIR}/${P}/${PN}"
 
 src_prepare() {
 	kde5_src_prepare

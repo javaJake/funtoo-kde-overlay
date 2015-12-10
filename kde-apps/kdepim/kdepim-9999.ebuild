@@ -65,7 +65,7 @@ COMMON_DEPEND="
 	$(add_kdeapps_dep kblog)
 	$(add_kdeapps_dep kcalcore)
 	$(add_kdeapps_dep kcontacts)
-	$(add_kdeapps_dep kdepim-apps-lib)
+	$(add_kdeapps_dep kdepim-apps-libs)
 	$(add_kdeapps_dep kdepim-kioslaves)
 	$(add_kdeapps_dep kdgantt2)
 	$(add_kdeapps_dep kholidays)
@@ -153,22 +153,6 @@ REQUIRED_USE="
 src_prepare() {
 	kde5_src_prepare
 
-	rm -r calendarsupport		\
-		eventviews		\
-		grantleetheme		\
-		incidenceeditor		\
-		kdepim-apps-lib		\
-		kdgantt2		\
-		libgravatar		\
-		libkdepim		\
-		libkleo			\
-		libksieve		\
-		mailcommon		\
-		mailimporter		\
-		messagelib		\
-		pimcommon		\
-		|| die "Failed to remove split libraries"
-
 	use handbook || sed -e '/^find_package.*KF5DocTools/ s/^/#/' \
 		-i CMakeLists.txt || die
 
@@ -180,7 +164,6 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		-DKDEPIM_BUILD_WITH_INSTALLED_LIB=TRUE
 		$(cmake-utils_use_find_package designer Qt5Designer)
 		$(cmake-utils_use_find_package google KF5GAPI)
 		$(cmake-utils_use_find_package prison KF5Prison)
