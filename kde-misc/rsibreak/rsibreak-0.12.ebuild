@@ -4,7 +4,7 @@
 
 EAPI=5
 
-KDE_HANDBOOK=forceoptional
+KDE_HANDBOOK="forceoptional"
 inherit kde5
 
 DESCRIPTION="Small utility which bothers you at certain intervals"
@@ -13,7 +13,7 @@ if [[ ${KDE_BUILD_TYPE} != live ]]; then
 	SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.xz"
 fi
 
-LICENSE="GPL-2+ FDL-1.2"
+LICENSE="GPL-2+ handbook? ( FDL-1.2 )"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
