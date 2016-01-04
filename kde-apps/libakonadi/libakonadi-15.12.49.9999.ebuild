@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -60,14 +60,14 @@ else
 	S="${WORKDIR}/${KMNAME}-${PV}/akonadi"
 fi
 
+PATCHES=( "${FILESDIR}/${PN}-15.11.80-testtools-optional.patch" )
+
 src_prepare() {
-	epatch "${FILESDIR}/${PN}-15.11.80-testtools-optional.patch"
+	kde5_src_prepare
 	if ! use tools ; then
 		sed -e "/add_subdirectory(xml)/ s/^/#DONT/" \
 			-i src/CMakeLists.txt || die
 	fi
-
-	kde5_src_prepare
 }
 
 src_configure() {

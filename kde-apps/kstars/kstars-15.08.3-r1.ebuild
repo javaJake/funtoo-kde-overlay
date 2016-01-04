@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -54,15 +54,12 @@ RDEPEND="${COMMON_DEPEND}
 	${PYTHON_DEPS}
 "
 
-src_prepare() {
+PATCHES=(
 	# Regression from commit e9f1b544eda238c068fbbbbf612f291c734ea5aa
 	# Inspiration from https://git.reviewboard.kde.org/r/110787/
-	epatch "${FILESDIR}/${PN}-15.04.0-use-python2-explicitly.patch"
-
-	epatch "${FILESDIR}/${PN}-15.08.3-qtopengl-optional.patch"
-
-	kde5_src_prepare
-}
+	"${FILESDIR}/${PN}-15.04.0-use-python2-explicitly.patch"
+	"${FILESDIR}/${PN}-15.08.3-qtopengl-optional.patch"
+)
 
 src_configure() {
 	local mycmakeargs=(

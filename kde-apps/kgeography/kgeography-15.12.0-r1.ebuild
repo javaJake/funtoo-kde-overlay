@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -29,9 +29,7 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
-src_prepare() {
-	epatch "${FILESDIR}/${PN}-15.12.0-kcrash.patch" \
-		"${FILESDIR}/${PN}-15.12.0-kservice.patch"
-
-	kde5_src_prepare
-}
+PATCHES=(
+	"${FILESDIR}/${PN}-15.12.0-kcrash.patch"
+	"${FILESDIR}/${PN}-15.12.0-kservice.patch"
+)

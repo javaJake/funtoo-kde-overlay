@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -62,9 +62,7 @@ DEPEND="${COMMON_DEPEND}
 PDEPEND="
 	$(add_frameworks_dep kded)
 "
-RDEPEND="${COMMON_DEPEND}
-	!kde-apps/libkonq:5[-minimal(-)]
-"
+RDEPEND="${COMMON_DEPEND}"
 
 # tests hang
 RESTRICT="test"
