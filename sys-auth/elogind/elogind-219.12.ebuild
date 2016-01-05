@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit autotools pam
 
@@ -13,32 +13,40 @@ SRC_URI="https://github.com/andywingo/elogind/archive/v${PV}.tar.gz -> ${P}.tar.
 LICENSE="CC0-1.0 LGPL-2.1+ public-domain"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="pam policykit +seccomp"
+IUSE="acl apparmor pam policykit selinux +seccomp"
 
 DEPEND="
 	sys-libs/libcap
 	sys-apps/util-linux
-	sys-apps/dbus
-	pam? ( sys-libs/pam )
-	policykit? ( sys-auth/polkit )
+	virtual/libudev:=
+	acl? ( sys-apps/acl )
+	apparmor? ( sys-libs/libapparmor )
+	pam? ( virtual/pam )
 	seccomp? ( sys-libs/libseccomp )
+	selinux? ( sys-libs/libselinux )
 "
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	sys-apps/dbus
+	policykit? ( sys-auth/polkit )
+"
 
-PATCHES=( "${FILESDIR}/${PN}-lrt.patch" )
+DOCS=( NEWS README TODO )
+PATCHES=(
+	"${FILESDIR}/${PN}-docs.patch"
+	"${FILESDIR}/${PN}-lrt.patch"
+)
 
 src_prepare() {
-	epatch ${PATCHES[@]}
+	default
 	eautoreconf
 }
 
 src_configure() {
 	econf \
-		$(use_enable seccomp)
-}
-
-src_install() {
-	default
-
-	rm -r "${D}"/usr/share/doc/elogind/ || die
+		--with-pamlibdir=$(getpam_mod_dir) \
+		$(use_enable acl) \
+		$(use_enable apparmor) \
+		$(use_enable pam) \
+		$(use_enable seccomp) \
+		$(use_enable selinux)
 }
