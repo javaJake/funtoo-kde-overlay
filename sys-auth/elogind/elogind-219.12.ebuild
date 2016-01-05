@@ -10,10 +10,10 @@ DESCRIPTION="The systemd project's logind, extracted to a standalone package"
 HOMEPAGE="https://github.com/andywingo/elogind"
 SRC_URI="https://github.com/andywingo/elogind/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
-LICENSE="LGPL-2.1"
+LICENSE="CC0-1.0 LGPL-2.1+ public-domain"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="pam policykit"
+IUSE="pam policykit +seccomp"
 
 DEPEND="
 	sys-libs/libcap
@@ -21,7 +21,8 @@ DEPEND="
 	sys-apps/dbus
 	pam? ( sys-libs/pam )
 	policykit? ( sys-auth/polkit )
-	"
+	seccomp? ( sys-libs/libseccomp )
+"
 RDEPEND="${DEPEND}"
 
 PATCHES=( "${FILESDIR}/${PN}-lrt.patch" )
@@ -29,4 +30,15 @@ PATCHES=( "${FILESDIR}/${PN}-lrt.patch" )
 src_prepare() {
 	epatch ${PATCHES[@]}
 	eautoreconf
+}
+
+src_configure() {
+	econf \
+		$(use_enable seccomp)
+}
+
+src_install() {
+	default
+
+	rm -r "${D}"/usr/share/doc/elogind/ || die
 }
