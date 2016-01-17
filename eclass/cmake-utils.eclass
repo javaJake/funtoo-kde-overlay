@@ -64,7 +64,6 @@ _CMAKE_UTILS_ECLASS=1
 # @DESCRIPTION:
 # Do we want to remove anything? yes or whatever else for no
 : ${CMAKE_REMOVE_MODULES:=yes}
-CMAKE_REMOVE_MODULES="${CMAKE_REMOVE_MODULES:-yes}"
 
 # @ECLASS-VARIABLE: CMAKE_REMOVE_MODULES_LIST
 # @DESCRIPTION:
@@ -162,6 +161,11 @@ unset CMAKEDEPEND
 _use_me_now() {
 	debug-print-function ${FUNCNAME} "$@"
 
+	local arg=$2
+	[[ ! -z $3 ]] && arg=$3
+
+	has "${EAPI:-0}" 2 3 4 5 || die "${FUNCNAME[1]} is banned in EAPI 6 and later: use -D$1${arg}=\"\$(usex $2)\" instead"
+
 	local uper capitalised x
 	[[ -z $2 ]] && die "cmake-utils_use-$1 <USE flag> [<flag name>]"
 	if [[ ! -z $3 ]]; then
@@ -178,6 +182,13 @@ _use_me_now() {
 }
 _use_me_now_inverted() {
 	debug-print-function ${FUNCNAME} "$@"
+
+	local arg=$2
+	[[ ! -z $3 ]] && arg=$3
+
+	if ! has "${EAPI:-0}" 2 3 4 5 && [[ "${FUNCNAME[1]}" != cmake-utils_use_find_package ]] ; then
+		die "${FUNCNAME[1]} is banned in EAPI 6 and later: use -D$1${arg}=\"\$(usex $2)\" insteadss"
+	fi
 
 	local uper capitalised x
 	[[ -z $2 ]] && die "cmake-utils_use-$1 <USE flag> [<flag name>]"
@@ -285,14 +296,20 @@ cmake-utils_use_with() { _use_me_now WITH_ "$@" ; }
 cmake-utils_use_enable() { _use_me_now ENABLE_ "$@" ; }
 
 # @FUNCTION: cmake-utils_use_find_package
-# @USAGE: <USE flag> [flag name]
+# @USAGE: <USE flag> <package name>
 # @DESCRIPTION:
 # Based on use_enable. See ebuild(5).
 #
 # `cmake-utils_use_find_package foo LibFoo` echoes -DCMAKE_DISABLE_FIND_PACKAGE_LibFoo=OFF
 # if foo is enabled and -DCMAKE_DISABLE_FIND_PACKAGE_LibFoo=ON if it is disabled.
 # This can be used to make find_package optional.
-cmake-utils_use_find_package() { _use_me_now_inverted CMAKE_DISABLE_FIND_PACKAGE_ "$@" ; }
+cmake-utils_use_find_package() {
+	if ! has "${EAPI:-0}" 2 3 4 5 && [[ "$#" != 2 ]] ; then
+		die "Usage: cmake-utils_use_find_package <USE flag> <package name>"
+	fi
+
+	_use_me_now_inverted CMAKE_DISABLE_FIND_PACKAGE_ "$@" ;
+}
 
 # @FUNCTION: cmake-utils_use_disable
 # @USAGE: <USE flag> [flag name]
