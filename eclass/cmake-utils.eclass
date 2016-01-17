@@ -104,6 +104,8 @@ CMAKE_REMOVE_MODULES="${CMAKE_REMOVE_MODULES:-yes}"
 # This is useful when only part of application is using cmake build system.
 # Valid values are: always [default], optional (where the value is the useflag
 # used for optionality)
+#
+# This is banned in EAPI 6 and later.
 : ${WANT_CMAKE:=always}
 
 # @ECLASS-VARIABLE: CMAKE_EXTRA_CACHE_FILE
@@ -126,7 +128,7 @@ case ${WANT_CMAKE} in
 	always)
 		;;
 	*)
-		! has "${EAPI:-0}" 2 3 4 5 && die "WANT_CMAKE is banned in EAPI 6 and later"
+		has "${EAPI:-0}" 2 3 4 5 || die "WANT_CMAKE is banned in EAPI 6 and later"
 		IUSE+=" ${WANT_CMAKE}"
 		CMAKEDEPEND+="${WANT_CMAKE}? ( "
 		;;
@@ -402,12 +404,12 @@ _modify-cmakelists() {
 _cleanup_cmake() {
 	: ${CMAKE_USE_DIR:=${S}}
 
-	[[ "${CMAKE_REMOVE_MODULES}" == "yes" ]] && {
+	if [[ "${CMAKE_REMOVE_MODULES}" == "yes" ]] ; then
 		local name
 		for name in ${CMAKE_REMOVE_MODULES_LIST} ; do
 			find "${S}" -name ${name}.cmake -exec rm -v {} + || die
 		done
-	}
+	fi
 
 	# check if CMakeLists.txt exist and if no then die
 	if [[ ! -e ${CMAKE_USE_DIR}/CMakeLists.txt ]] ; then
@@ -426,12 +428,10 @@ enable_cmake-utils_src_prepare() {
 
 	pushd "${S}" > /dev/null || die
 
-	if has "${EAPI:-0}" 6 ; then
-		_cleanup_cmake
+	if ! has "${EAPI:-0}" 2 3 4 5 ; then
 		default_src_prepare
-	fi
-
-	if has "${EAPI:-0}" 2 3 4 5 ; then
+		_cleanup_cmake
+	else
 		debug-print "$FUNCNAME: PATCHES=$PATCHES"
 		[[ ${PATCHES[@]} ]] && epatch "${PATCHES[@]}"
 
