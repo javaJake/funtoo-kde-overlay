@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 VIRTUALX_REQUIRED="test"
 inherit kde5
@@ -23,9 +23,9 @@ RDEPEND="
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep sonnet)
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
-	speech? ( dev-qt/qtspeech:5 )
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtwidgets)
+	speech? ( $(add_qt_dep qtspeech) )
 "
 DEPEND="${RDEPEND}"
 

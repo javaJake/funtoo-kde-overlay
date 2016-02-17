@@ -23,23 +23,23 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
+	$(add_kdeapps_dep akonadi)
 	$(add_kdeapps_dep akonadi-mime)
 	$(add_kdeapps_dep kldap)
 	$(add_kdeapps_dep kmailtransport)
 	$(add_kdeapps_dep kmime)
-	$(add_kdeapps_dep libakonadi)
 	$(add_kdeapps_dep libkdepim)
 	$(add_kdeapps_dep mailimporter)
 	$(add_kdeapps_dep messagelib)
 	$(add_kdeapps_dep pimcommon)
 	dev-libs/libxslt
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtwidgets)
 	media-libs/phonon[qt5]
 "
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
-	designer? ( dev-qt/designer:5 )
+	designer? ( $(add_qt_dep designer) )
 "
 RDEPEND="${COMMON_DEPEND}
 	!<kde-apps/kdepim-15.08.50:5

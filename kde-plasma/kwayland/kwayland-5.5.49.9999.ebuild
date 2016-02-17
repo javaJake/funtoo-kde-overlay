@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_TEST="true"
 inherit kde5
@@ -16,7 +16,7 @@ IUSE=""
 
 DEPEND="
 	>=dev-libs/wayland-1.7.0
-	dev-qt/qtgui:5
+	$(add_qt_dep qtgui)
 	media-libs/mesa[egl]
 "
 RDEPEND="${DEPEND}"

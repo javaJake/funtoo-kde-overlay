@@ -27,6 +27,7 @@ RDEPEND="
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kwallet)
 	$(add_frameworks_dep kxmlgui)
+	$(add_kdeapps_dep akonadi)
 	$(add_kdeapps_dep akonadi-contact)
 	$(add_kdeapps_dep akonadi-mime)
 	$(add_kdeapps_dep kcalcore)
@@ -35,10 +36,9 @@ RDEPEND="
 	$(add_kdeapps_dep kidentitymanagement)
 	$(add_kdeapps_dep kmailtransport)
 	$(add_kdeapps_dep kmime)
-	$(add_kdeapps_dep libakonadi)
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtwidgets)
 "
 DEPEND="${RDEPEND}"
 

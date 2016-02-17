@@ -4,16 +4,16 @@
 
 EAPI=5
 
-KDE_HANDBOOK=true
+KDE_HANDBOOK="forceoptional"
 inherit kde5
 
 DESCRIPTION="Screenshot capture utility"
-
 KEYWORDS=""
 IUSE="kipi share"
 
 DEPEND="
 	$(add_frameworks_dep kconfig)
+	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
 	$(add_frameworks_dep kdbusaddons)
 	$(add_frameworks_dep ki18n)
@@ -23,13 +23,16 @@ DEPEND="
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
-	$(add_plasma_dep kscreen)
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtprintsupport:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtx11extras:5
+	$(add_plasma_dep libkscreen)
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtprintsupport)
+	$(add_qt_dep qtwidgets)
+	$(add_qt_dep qtx11extras)
 	x11-libs/libxcb
+	x11-libs/xcb-util
+	x11-libs/xcb-util-cursor
+	x11-libs/xcb-util-image
 	kipi? ( $(add_kdeapps_dep libkipi) )
 	share? ( dev-libs/purpose:5 )
 "

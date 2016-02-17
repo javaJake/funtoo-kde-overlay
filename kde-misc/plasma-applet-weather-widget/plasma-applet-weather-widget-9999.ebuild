@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit kde5
 
@@ -21,7 +21,7 @@ IUSE=""
 
 DEPEND="
 	$(add_frameworks_dep plasma)
-	dev-qt/qtdeclarative:5
+	$(add_qt_dep qtdeclarative)
 "
 RDEPEND="${DEPEND}"
 

@@ -28,7 +28,7 @@ case ${KMNAME} in
 		case ${PN} in
 			akregator|kaddressbook|kjots|kmail|knode|knotes|korganizer|ktimetracker)
 				IUSE+=" +kontact"
-				RDEPEND+=" kontact? ( $(add_kdeapps_dep kontact) )"
+				RDEPEND+=" kontact? ( $(add_kdeapps_dep kontact '' ${PV}) )"
 				;;
 		esac
 		;;
@@ -185,6 +185,9 @@ kde4-meta_src_extract() {
 		if [[ ${PV} =~ 4.4.11 ]]; then
 			postfix="bz2"
 			KMTARPARAMS+=" --bzip2"
+		elif [[ ${PV} =~ _pre ]]; then
+			postfix="gz"
+			KMTARPARAMS+=" --gz"
 		else
 			postfix="xz"
 			KMTARPARAMS+=" --xz"
@@ -198,6 +201,9 @@ kde4-meta_src_extract() {
 		# Detect real toplevel dir from tarball name - it will be used upon extraction
 		# and in _list_needed_subdirectories
 		topdir="${tarball%.tar.*}/"
+		if [[ ${topdir} =~ _pre ]]; then
+			topdir="${topdir%-$PV*}/"
+		fi
 
 		ebegin "Unpacking parts of ${tarball} to ${WORKDIR}"
 

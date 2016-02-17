@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit kde5-meta-pkg
 
@@ -40,13 +40,13 @@ RDEPEND="
 	$(add_kdeapps_dep kidentitymanagement)
 	$(add_kdeapps_dep kimap)
 	$(add_kdeapps_dep kldap)
+	$(add_kdeapps_dep kleopatra)
 	$(add_kdeapps_dep kmailtransport)
 	$(add_kdeapps_dep kmbox)
 	$(add_kdeapps_dep kmime)
 	$(add_kdeapps_dep kontactinterface)
 	$(add_kdeapps_dep kpimtextedit)
 	$(add_kdeapps_dep ktnef)
-	$(add_kdeapps_dep libakonadi)
 	$(add_kdeapps_dep libgravatar)
 	$(add_kdeapps_dep libkdepim)
 	$(add_kdeapps_dep libkleo)

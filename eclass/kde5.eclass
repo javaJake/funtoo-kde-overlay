@@ -19,7 +19,7 @@ _KDE5_ECLASS=1
 # for tests you should proceed with setting VIRTUALX_REQUIRED=test.
 : ${VIRTUALX_REQUIRED:=manual}
 
-inherit kde5-functions fdo-mime flag-o-matic gnome2-utils versionator virtualx eutils cmake-utils
+inherit cmake-utils eutils flag-o-matic gnome2-utils kde5-functions versionator virtualx xdg
 
 if [[ ${KDE_BUILD_TYPE} = live ]]; then
 	case ${KDE_SCM} in
@@ -150,6 +150,12 @@ case ${KDE_AUTODEPS} in
 				;;
 				*) ;;
 			esac
+		fi
+
+		if [[ ${CATEGORY} = kde-plasma ]]; then
+			if [[ ${PV} = 5.5* || ${PV} = 9999 ]]; then
+				QT_MINIMAL=5.5.0
+			fi
 		fi
 
 		DEPEND+=" $(add_frameworks_dep extra-cmake-modules)"
@@ -453,12 +459,12 @@ kde5_src_prepare() {
 
 	# only build examples when required
 	if ! use_if_iuse examples || ! use examples ; then
-		comment_add_subdirectory examples
+		cmake_comment_add_subdirectory examples
 	fi
 
 	# only enable handbook when required
 	if ! use_if_iuse handbook ; then
-		comment_add_subdirectory ${KDE_DOC_DIR}
+		cmake_comment_add_subdirectory ${KDE_DOC_DIR}
 
 		if [[ ${KDE_HANDBOOK} = forceoptional ]] ; then
 			punt_bogus_dep KF5 DocTools
@@ -476,7 +482,7 @@ kde5_src_prepare() {
 						rm -rf ${lang}
 					fi
 					if [[ -e CMakeLists.txt ]] ; then
-						comment_add_subdirectory ${lang}
+						cmake_comment_add_subdirectory ${lang}
 					fi
 				fi
 			done
@@ -487,7 +493,7 @@ kde5_src_prepare() {
 			pushd ${KDE_DOC_DIR} > /dev/null || die
 			for lang in *; do
 				if ! has ${lang} ${LINGUAS} ; then
-					comment_add_subdirectory ${lang}
+					cmake_comment_add_subdirectory ${lang}
 				fi
 			done
 			popd > /dev/null || die
@@ -498,7 +504,7 @@ kde5_src_prepare() {
 
 	# in frameworks, tests = manual tests so never build them
 	if [[ ${CATEGORY} = kde-frameworks ]]; then
-		comment_add_subdirectory tests
+		cmake_comment_add_subdirectory tests
 	fi
 
 	case ${KDE_PUNT_BOGUS_DEPS} in
@@ -518,13 +524,13 @@ kde5_src_prepare() {
 		if [[ ${KDE_TEST} = forceoptional ]] ; then
 			punt_bogus_dep Qt5 Test
 			# if forceoptional, also cover non-kde categories
-			comment_add_subdirectory autotests
-			comment_add_subdirectory test
-			comment_add_subdirectory tests
+			cmake_comment_add_subdirectory autotests
+			cmake_comment_add_subdirectory test
+			cmake_comment_add_subdirectory tests
 		elif [[ ${CATEGORY} = kde-frameworks || ${CATEGORY} = kde-plasma || ${CATEGORY} = kde-apps ]] ; then
-			comment_add_subdirectory autotests
-			comment_add_subdirectory test
-			comment_add_subdirectory tests
+			cmake_comment_add_subdirectory autotests
+			cmake_comment_add_subdirectory test
+			cmake_comment_add_subdirectory tests
 		fi
 	fi
 }
@@ -590,7 +596,7 @@ kde5_src_test() {
 	unset DBUS_SESSION_BUS_ADDRESS DBUS_SESSION_BUS_PID
 
 	if [[ ${VIRTUALX_REQUIRED} = always || ${VIRTUALX_REQUIRED} = test ]]; then
-		VIRTUALX_COMMAND="_test_runner" virtualmake
+		virtx _test_runner
 	else
 		_test_runner
 	fi
@@ -627,6 +633,7 @@ kde5_pkg_preinst() {
 	debug-print-function ${FUNCNAME} "$@"
 
 	gnome2_icon_savelist
+	xdg_pkg_preinst
 }
 
 # @FUNCTION: kde5_pkg_postinst
@@ -636,7 +643,7 @@ kde5_pkg_postinst() {
 	debug-print-function ${FUNCNAME} "$@"
 
 	gnome2_icon_cache_update
-	fdo-mime_desktop_database_update
+	xdg_pkg_postinst
 }
 
 # @FUNCTION: kde5_pkg_postrm
@@ -646,7 +653,7 @@ kde5_pkg_postrm() {
 	debug-print-function ${FUNCNAME} "$@"
 
 	gnome2_icon_cache_update
-	fdo-mime_desktop_database_update
+	xdg_pkg_postrm
 }
 
 fi

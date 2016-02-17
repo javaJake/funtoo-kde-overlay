@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-FRAMEWORKS_MINIMAL="5.16.0"
+FRAMEWORKS_MINIMAL="5.19.0"
 KDE_HANDBOOK="forceoptional"
 KDE_TEST="true"
 VIRTUALX_REQUIRED="test"
@@ -25,6 +25,7 @@ DEPEND="
 	$(add_frameworks_dep kcoreaddons)
 	$(add_frameworks_dep kcrash)
 	$(add_frameworks_dep kdbusaddons)
+	$(add_frameworks_dep kfilemetadata)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kiconthemes)
 	$(add_frameworks_dep kinit)
@@ -40,15 +41,14 @@ DEPEND="
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
 	$(add_frameworks_dep solid)
-	dev-qt/qtconcurrent:5
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtxml:5
+	$(add_qt_dep qtconcurrent)
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtwidgets)
+	$(add_qt_dep qtxml)
 	media-libs/phonon[qt5]
 	semantic-desktop? (
 		$(add_frameworks_dep baloo)
-		$(add_frameworks_dep kfilemetadata)
 		$(add_kdeapps_dep baloo-widgets)
 	)
 	!semantic-desktop? (
@@ -67,9 +67,8 @@ RESTRICT="test"
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_with semantic-desktop KF5Baloo)
-		$(cmake-utils_use_with semantic-desktop KF5BalooWidgets)
-		$(cmake-utils_use_with semantic-desktop KF5FileMetaData)
+		-DWITH_KF5Baloo=$(usex semantic-desktop)
+		-DWITH_KF5BalooWidgets=$(usex semantic-desktop)
 	)
 
 	kde5_src_configure
@@ -78,10 +77,9 @@ src_configure() {
 pkg_postinst() {
 	kde5_pkg_postinst
 
-	if ( ! has_version "kde-apps/ark:${SLOT}" || has_version "<kde-frameworks/kio-5.17.0" ); then
+	if ! has_version "kde-apps/ark:${SLOT}" ; then
 		echo
-		elog "For compress/extract and other actions, please install"
-		elog "kde-apps/ark:${SLOT} and >=kde-frameworks/kio-5.17.0"
+		elog "For compress/extract and other actions, please install kde-apps/ark:${SLOT}"
 		echo
 	fi
 }

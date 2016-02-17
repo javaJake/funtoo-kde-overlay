@@ -7,7 +7,7 @@ EAPI=5
 KDE_HANDBOOK="true"
 KDE_TEST="true"
 VIRTUALX_REQUIRED="test"
-inherit fdo-mime kde5
+inherit kde5
 
 DESCRIPTION="KIO plugins present a filesystem-like view of arbitrary data"
 HOMEPAGE="https://projects.kde.org/projects/kde/workspace/kio-extras"
@@ -34,12 +34,12 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kservice)
 	$(add_frameworks_dep kxmlgui)
 	$(add_frameworks_dep solid)
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtnetwork:5
-	dev-qt/qtsvg:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtxml:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtnetwork)
+	$(add_qt_dep qtsvg)
+	$(add_qt_dep qtwidgets)
+	$(add_qt_dep qtxml)
 	virtual/jpeg:0
 	exif? ( media-gfx/exiv2:= )
 	mtp? ( media-libs/libmtp:= )
@@ -70,14 +70,4 @@ src_configure() {
 	)
 
 	kde5_src_configure
-}
-
-pkg_postinst() {
-	kde5_pkg_postinst
-	fdo-mime_mime_database_update
-}
-
-pkg_postrm() {
-	kde5_pkg_postinst
-	fdo-mime_mime_database_update
 }

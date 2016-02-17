@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_HANDBOOK="true"
 inherit kde5
@@ -32,12 +32,12 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kxmlgui)
 	$(add_frameworks_dep solid)
-	dev-qt/qtdbus:5
-	dev-qt/qtdeclarative:5
-	dev-qt/qtgui:5[opengl(+)]
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtdeclarative)
+	$(add_qt_dep qtgui 'opengl(+)')
+	$(add_qt_dep qtwidgets)
 	gles? (
-		dev-qt/qtgui:5[gles2]
+		$(add_qt_dep qtgui 'gles2')
 		|| (
 			media-libs/mesa[egl,gles1]
 			media-libs/mesa[egl,gles2]

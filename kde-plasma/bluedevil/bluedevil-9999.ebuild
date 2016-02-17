@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit fdo-mime kde5
+inherit kde5
 
 DESCRIPTION="Bluetooth stack for KDE"
 HOMEPAGE="https://projects.kde.org/projects/extragear/base/bluedevil"
@@ -25,10 +25,10 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep plasma)
-	dev-qt/qtdbus:5
-	dev-qt/qtdeclarative:5
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtdeclarative)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtwidgets)
 "
 DEPEND="${COMMON_DEPEND}
 	x11-misc/shared-mime-info
@@ -40,13 +40,3 @@ RDEPEND="${COMMON_DEPEND}
 	!net-wireless/bluedevil
 	!net-wireless/kbluetooth
 "
-
-pkg_postinst() {
-	kde5_pkg_postinst
-	fdo-mime_mime_database_update
-}
-
-pkg_postrm() {
-	kde5_pkg_postinst
-	fdo-mime_mime_database_update
-}

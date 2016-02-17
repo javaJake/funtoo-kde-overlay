@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_TEST="false"
 inherit kde5
@@ -20,9 +20,10 @@ RDEPEND="
 	$(add_frameworks_dep kio)
 	$(add_frameworks_dep kservice)
 	$(add_frameworks_dep kwindowsystem)
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
 	x11-libs/libX11
+	x11-libs/libxcb
 	caps? ( sys-libs/libcap )
 "
 DEPEND="${RDEPEND}

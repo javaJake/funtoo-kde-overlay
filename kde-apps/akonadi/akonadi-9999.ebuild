@@ -2,40 +2,64 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-KDE_TESTS=true
+KDE_DOXYGEN=true
+KDE_TEST=true
 VIRTUALDBUS_TEST=true
+VIRTUALX_REQUIRED=test
 inherit kde5
 
-DESCRIPTION="Storage service for PIM data"
+DESCRIPTION="Storage service for PIM data and libraries for PIM apps"
 HOMEPAGE="https://pim.kde.org/akonadi"
 KEYWORDS=""
 LICENSE="LGPL-2.1"
-IUSE="+mysql postgres sqlite test"
+IUSE="designer +mysql postgres sqlite tools xml"
 
-REQUIRED_USE="|| ( sqlite mysql postgres )"
+REQUIRED_USE="|| ( sqlite mysql postgres ) test? ( tools )"
 
-CDEPEND="
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtnetwork:5
-	dev-qt/qtsql:5[mysql?,postgres?]
-	dev-qt/qttest:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtxml:5
+COMMON_DEPEND="
+	$(add_frameworks_dep kcompletion)
+	$(add_frameworks_dep kconfig)
+	$(add_frameworks_dep kconfigwidgets)
+	$(add_frameworks_dep kcoreaddons)
+	$(add_frameworks_dep kdbusaddons)
+	$(add_frameworks_dep kdesignerplugin)
+	$(add_frameworks_dep kguiaddons)
+	$(add_frameworks_dep ki18n)
+	$(add_frameworks_dep kiconthemes)
+	$(add_frameworks_dep kio)
+	$(add_frameworks_dep kitemmodels)
+	$(add_frameworks_dep kitemviews)
+	$(add_frameworks_dep kwidgetsaddons)
+	$(add_frameworks_dep kwindowsystem)
+	$(add_frameworks_dep kxmlgui)
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtnetwork)
+	$(add_qt_dep qtsql 'mysql?,postgres?')
+	$(add_qt_dep qtwidgets)
+	$(add_qt_dep qtxml)
 	x11-misc/shared-mime-info
+	designer? ( $(add_qt_dep designer) )
 	sqlite? ( dev-db/sqlite:3 )
+	tools? ( xml? ( dev-libs/libxml2 ) )
 "
-DEPEND="${CDEPEND}
+DEPEND="${COMMON_DEPEND}
+	dev-libs/boost
 	dev-libs/libxslt
 	test? ( sys-apps/dbus )
 "
-RDEPEND="${CDEPEND}
+RDEPEND="${COMMON_DEPEND}
 	mysql? ( virtual/mysql )
 	postgres? ( dev-db/postgresql )
 	!app-office/akonadi-server
+	!kde-apps/kdepimlibs
+	!kde-apps/libakonadi
 "
+
+# some akonadi tests time out, that probably needs more work as it's ~700 tests
+RESTRICT="test"
 
 PATCHES=( "${FILESDIR}/${PN}-15.12-mysql56-crash.patch" )
 
@@ -72,8 +96,11 @@ pkg_setup() {
 
 src_configure() {
 	local mycmakeargs=(
-		-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+		$(cmake-utils_use_find_package designer Qt5Designer)
+		$(cmake-utils_use_find_package xml LibXml2)
 		-DAKONADI_BUILD_QSQLITE=$(usex sqlite)
+		-DBUILD_TOOLS=$(usex tools)
+		-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 	)
 
 	kde5_src_configure

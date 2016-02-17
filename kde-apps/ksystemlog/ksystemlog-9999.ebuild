@@ -4,10 +4,10 @@
 
 EAPI=5
 
-KDE_DOXYGEN=true
-KDE_HANDBOOK=true
-KDE_TEST=true
-VIRTUALX_REQUIRED=test
+KDE_DOXYGEN="true"
+KDE_HANDBOOK="forceoptional"
+KDE_TEST="forceoptional"
+VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="System log viewer by KDE"
@@ -32,9 +32,9 @@ DEPEND="
 	$(add_frameworks_dep ktextwidgets)
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kxmlgui)
-	dev-qt/qtgui:5
-	dev-qt/qtprintsupport:5
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtprintsupport)
+	$(add_qt_dep qtwidgets)
 	systemd? ( sys-apps/systemd )
 "
 

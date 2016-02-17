@@ -8,6 +8,8 @@ dev-db
 dev-libs
 dev-util
 dev-vcs
+games-board
+games-puzzle
 kde-apps
 kde-base
 kde-frameworks
@@ -28,6 +30,7 @@ sci-geosciences
 sys-auth
 sys-block
 sys-devel
+sys-libs
 www-client
 x11-libs
 x11-themes

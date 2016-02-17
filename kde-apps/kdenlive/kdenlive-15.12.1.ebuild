@@ -12,7 +12,7 @@ HOMEPAGE="https://www.kdenlive.org/"
 
 LICENSE="GPL-2"
 KEYWORDS=" ~amd64 ~x86"
-IUSE="v4l"
+IUSE="gles2 v4l"
 
 RDEPEND="
 	$(add_frameworks_dep karchive)
@@ -40,14 +40,13 @@ RDEPEND="
 	$(add_frameworks_dep solid)
 	dev-qt/qtdbus:5
 	dev-qt/qtdeclarative:5
-	dev-qt/qtgui:5
+	dev-qt/qtgui:5[gles2=]
 	dev-qt/qtnetwork:5
-	dev-qt/qtopengl:5
 	dev-qt/qtscript:5
 	dev-qt/qtsvg:5
 	dev-qt/qtwidgets:5
 	dev-qt/qtxml:5
-	>=media-libs/mlt-0.9.8[ffmpeg,kdenlive,melt,qt5,sdl,xml]
+	>=media-libs/mlt-0.9.8-r1[ffmpeg,kdenlive,melt,qt5,sdl,xml]
 	virtual/ffmpeg[encode,sdl,X]
 	virtual/opengl
 	v4l? ( media-libs/libv4l )

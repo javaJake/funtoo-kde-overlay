@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-KDE_TEST=true
-KMNAME=kdepimlibs
+FRAMEWORKS_MINIMAL="5.19.0"
+KDE_TEST="true"
+KMNAME="kdepimlibs"
 inherit kde5
 
 DESCRIPTION="Library for social utils integration"
@@ -21,24 +22,18 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kguiaddons)
 	$(add_frameworks_dep kio)
 	$(add_frameworks_dep kitemmodels)
-	$(add_kdeapps_dep libakonadi)
-	dev-qt/qtgui:5
+	$(add_kdeapps_dep akonadi)
+	$(add_qt_dep qtgui)
 	x11-misc/shared-mime-info
 "
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 "
 RDEPEND="${COMMON_DEPEND}
-	!kde-apps/kdepimlibs
+	!kde-apps/kdepimlibs:4
+	!kde-apps/kdepimlibs:5
 "
 
 if [[ ${KDE_BUILD_TYPE} = live ]] ; then
 	S="${WORKDIR}/${P}/${PN}"
 fi
-
-src_configure() {
-	local mycmakeargs=(
-		$(cmake-utils_use_build test TESTING)
-	)
-	kde5_src_configure
-}

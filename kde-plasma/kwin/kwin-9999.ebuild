@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_HANDBOOK="true"
 KDE_TEST="true"
@@ -41,14 +41,14 @@ COMMON_DEPEND="
 	$(add_plasma_dep kdecoration)
 	$(add_plasma_dep kscreenlocker)
 	$(add_plasma_dep kwayland)
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtdeclarative)
+	$(add_qt_dep qtgui 'gles2=,opengl(+)')
+	$(add_qt_dep qtscript)
+	$(add_qt_dep qtwidgets)
+	$(add_qt_dep qtx11extras)
 	>=dev-libs/libinput-0.10
 	>=dev-libs/wayland-1.2
-	dev-qt/qtdbus:5
-	dev-qt/qtdeclarative:5
-	dev-qt/qtgui:5[gles2=,opengl(+)]
-	dev-qt/qtscript:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtx11extras:5
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/libepoxy
@@ -68,21 +68,22 @@ RDEPEND="${COMMON_DEPEND}
 	$(add_plasma_dep kde-cli-tools)
 	multimedia? (
 		|| (
-			dev-qt/qtmultimedia:5[gstreamer,qml]
-			dev-qt/qtmultimedia:5[gstreamer010,qml]
+			$(add_qt_dep qtmultimedia 'gstreamer,qml')
+			$(add_qt_dep qtmultimedia 'gstreamer010,qml')
 		)
 	)
+	!<kde-apps/kdeartwork-meta-15.08.3-r1:4
 	!kde-base/kwin:4
 	!kde-base/systemsettings:4
 "
 DEPEND="${COMMON_DEPEND}
-	dev-qt/designer:5
-	dev-qt/qtconcurrent:5
+	$(add_qt_dep designer)
+	$(add_qt_dep qtconcurrent)
 	x11-proto/xproto
 	test? (	x11-libs/xcb-util-wm )
 "
 
 src_prepare() {
 	kde5_src_prepare
-	use multimedia || epatch "${FILESDIR}/${PN}-gstreamer-optional.patch"
+	use multimedia || eapply "${FILESDIR}/${PN}-gstreamer-optional.patch"
 }

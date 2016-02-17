@@ -2,10 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_TEST="forceoptional"
-QT_MINIMAL="5.5.0"
 VIRTUALX_REQUIRED="test"
 inherit kde5 pam
 
@@ -20,7 +19,6 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kcoreaddons)
 	$(add_frameworks_dep kcrash)
 	$(add_frameworks_dep kdeclarative)
-	$(add_frameworks_dep kdelibs4support)
 	$(add_frameworks_dep kglobalaccel)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kidletime)
@@ -28,14 +26,15 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kpackage)
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
+	$(add_frameworks_dep solid)
 	$(add_plasma_dep kwayland)
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtdeclarative 'widgets')
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtnetwork)
+	$(add_qt_dep qtwidgets)
+	$(add_qt_dep qtx11extras)
 	dev-libs/wayland
-	dev-qt/qtdbus:5
-	dev-qt/qtdeclarative:5[widgets]
-	dev-qt/qtgui:5
-	dev-qt/qtnetwork:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtx11extras:5
 	x11-libs/libX11
 	x11-libs/libXi
 	x11-libs/libxcb
@@ -48,9 +47,11 @@ DEPEND="${COMMON_DEPEND}
 RDEPEND="${COMMON_DEPEND}
 	$(add_plasma_dep kde-cli-tools)
 	!<kde-base/kcheckpass-4.11.22-r1:4
-	!kde-base/kdebase-pam:4
+	!kde-base/kdebase-pam:0
 	!<kde-plasma/plasma-workspace-5.4.50
 "
+
+RESTRICT="test"
 
 PATCHES=( "${FILESDIR}/${PN}-5.4.90-no-SUID-no-GUID.patch" )
 
@@ -71,7 +72,7 @@ src_test() {
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_find_package pam)
+		$(cmake-utils_use_find_package pam PAM)
 	)
 	kde5_src_configure
 }

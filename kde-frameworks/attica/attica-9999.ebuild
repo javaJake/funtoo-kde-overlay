@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit kde5
 
@@ -12,6 +12,6 @@ KEYWORDS=""
 IUSE=""
 
 RDEPEND="
-	dev-qt/qtnetwork:5
+	$(add_qt_dep qtnetwork)
 "
 DEPEND="${RDEPEND}"

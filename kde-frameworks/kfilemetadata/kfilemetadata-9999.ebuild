@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit kde5
 
@@ -14,7 +14,7 @@ IUSE="epub exif ffmpeg libav pdf taglib"
 DEPEND="
 	$(add_frameworks_dep karchive)
 	$(add_frameworks_dep ki18n)
-	dev-qt/qtxml:5
+	$(add_qt_dep qtxml)
 	epub? ( app-text/ebook-tools )
 	exif? ( media-gfx/exiv2:= )
 	ffmpeg? (

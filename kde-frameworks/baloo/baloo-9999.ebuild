@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_TEST="forceoptional"
 inherit kde5
@@ -22,10 +22,10 @@ DEPEND="
 	$(add_frameworks_dep kio)
 	$(add_frameworks_dep solid)
 	>=dev-db/lmdb-0.9.17
-	dev-qt/qtdbus:5
-	dev-qt/qtdeclarative:5
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtdeclarative)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtwidgets)
 "
 RDEPEND="${DEPEND}
 	!kde-base/baloo:4[-minimal(-)]

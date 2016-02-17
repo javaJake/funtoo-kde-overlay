@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_DOXYGEN="true"
 KDE_TEST="true"
@@ -17,7 +17,7 @@ RDEPEND="
 	$(add_frameworks_dep kcoreaddons)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kio)
-	dev-qt/qtxml:5
+	$(add_qt_dep qtxml)
 	!<kde-plasma/plasma-workspace-5.2.95
 "
 DEPEND="${RDEPEND}"

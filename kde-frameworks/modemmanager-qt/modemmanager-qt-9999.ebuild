@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit kde5
 
@@ -12,8 +12,8 @@ KEYWORDS=""
 IUSE=""
 
 RDEPEND="
-	dev-qt/qtdbus:5
-	dev-qt/qtxml:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtxml)
 	net-misc/modemmanager
 	!kde-plasma/libmm-qt
 "

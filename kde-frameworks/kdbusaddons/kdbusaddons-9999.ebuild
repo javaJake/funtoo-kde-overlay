@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 VIRTUALDBUS_TEST="true"
 inherit kde5
@@ -13,11 +13,11 @@ KEYWORDS=""
 IUSE="nls X"
 
 RDEPEND="
-	dev-qt/qtdbus:5
-	X? ( dev-qt/qtx11extras:5 )
+	$(add_qt_dep qtdbus)
+	X? ( $(add_qt_dep qtx11extras) )
 "
 DEPEND="${RDEPEND}
-	nls? ( dev-qt/linguist-tools:5 )
+	nls? ( $(add_qt_dep linguist-tools) )
 "
 
 src_configure() {

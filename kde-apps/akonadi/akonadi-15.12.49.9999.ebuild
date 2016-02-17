@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-KDE_TESTS=true
+KDE_TEST=true
 VIRTUALDBUS_TEST=true
 inherit kde5
 
@@ -12,18 +12,17 @@ DESCRIPTION="Storage service for PIM data"
 HOMEPAGE="https://pim.kde.org/akonadi"
 KEYWORDS=""
 LICENSE="LGPL-2.1"
-IUSE="+mysql postgres sqlite test"
+IUSE="+mysql postgres sqlite"
 
 REQUIRED_USE="|| ( sqlite mysql postgres )"
 
 CDEPEND="
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtnetwork:5
-	dev-qt/qtsql:5[mysql?,postgres?]
-	dev-qt/qttest:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtxml:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtnetwork)
+	$(add_qt_dep qtsql 'mysql?,postgres?')
+	$(add_qt_dep qtwidgets)
+	$(add_qt_dep qtxml)
 	x11-misc/shared-mime-info
 	sqlite? ( dev-db/sqlite:3 )
 "

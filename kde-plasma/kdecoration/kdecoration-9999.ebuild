@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_TEST="forceoptional"
 VIRTUALX_REQUIRED="test"
@@ -13,5 +13,5 @@ LICENSE="|| ( LGPL-2.1 LGPL-3 )"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="dev-qt/qtgui:5"
+DEPEND="$(add_qt_dep qtgui)"
 RDEPEND="${DEPEND}"

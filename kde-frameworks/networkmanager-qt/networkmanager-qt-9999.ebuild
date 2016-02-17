@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit kde5
 
@@ -12,8 +12,8 @@ KEYWORDS=""
 IUSE="teamd"
 
 RDEPEND="
-	dev-qt/qtdbus:5
-	dev-qt/qtnetwork:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtnetwork)
 	|| (
 		>=net-misc/networkmanager-0.9.10.0[consolekit,teamd=]
 		>=net-misc/networkmanager-0.9.10.0[systemd,teamd=]

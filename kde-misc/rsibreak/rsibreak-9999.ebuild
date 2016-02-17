@@ -2,15 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-KDE_HANDBOOK=forceoptional
-inherit kde5
+KDE_HANDBOOK="forceoptional"
+inherit kde5 versionator
 
 DESCRIPTION="Small utility which bothers you at certain intervals"
 HOMEPAGE="https://userbase.kde.org/RSIBreak"
-if [[ ${KDE_BUILD_TYPE} != live ]]; then
-	SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.xz"
+if [[ ${KDE_BUILD_TYPE} = release ]]; then
+	SRC_URI="mirror://kde/stable/${PN}/$(get_version_component_range 1-2)/${P}.tar.xz"
 fi
 
 LICENSE="GPL-2+ handbook? ( FDL-1.2 )"
@@ -31,9 +31,9 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtwidgets)
 "
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext

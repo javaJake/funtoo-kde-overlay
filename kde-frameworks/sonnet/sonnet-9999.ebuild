@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit kde5
 
@@ -12,19 +12,19 @@ KEYWORDS=""
 IUSE="aspell +hunspell nls"
 
 RDEPEND="
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtwidgets)
 	aspell? ( app-text/aspell )
 	hunspell? ( app-text/hunspell )
 "
 DEPEND="${RDEPEND}
-	nls? ( dev-qt/linguist-tools:5 )
+	nls? ( $(add_qt_dep linguist-tools) )
 "
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_find_package aspell)
-		$(cmake-utils_use_find_package hunspell)
+		$(cmake-utils_use_find_package aspell ASPELL)
+		$(cmake-utils_use_find_package hunspell HUNSPELL)
 	)
 
 	kde5_src_configure

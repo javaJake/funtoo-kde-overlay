@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_TEST=true
 KMNAME=kdepimlibs
@@ -36,9 +36,9 @@ COMMON_DEPEND="
 	$(add_kdeapps_dep kcalcore)
 	$(add_kdeapps_dep kcontacts)
 	$(add_kdeapps_dep kmime)
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtwidgets)
 	media-libs/phonon[qt5]
 	prison? ( media-libs/prison:5 )
 "
@@ -46,7 +46,8 @@ DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 "
 RDEPEND="${COMMON_DEPEND}
-	!kde-apps/kdepimlibs
+	!kde-apps/kdepimlibs:4
+	!kde-apps/kdepimlibs:5
 "
 
 if [[ ${KDE_BUILD_TYPE} = live ]] ; then
@@ -58,7 +59,6 @@ fi
 src_configure() {
 	local mycmakeargs=(
 		$(cmake-utils_use_find_package prison KF5Prison)
-		$(cmake-utils_use_build test TESTING)
 	)
 	kde5_src_configure
 }

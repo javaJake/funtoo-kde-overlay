@@ -6,7 +6,7 @@ EAPI=5
 
 KDE_DOXYGEN="true"
 KDE_GCC_MINIMAL="4.9"
-KDE_HANDBOOK="true"
+KDE_HANDBOOK="forceoptional"
 inherit kde5
 
 DESCRIPTION="BibTeX editor to edit bibliographies used with LaTeX"
@@ -39,12 +39,13 @@ DEPEND="
 	dev-libs/icu:=
 	dev-libs/libxml2
 	dev-libs/libxslt
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtnetwork:5
-	dev-qt/qtwebkit:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtxml:5
+	dev-libs/qoauth:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtnetwork)
+	$(add_qt_dep qtwebkit)
+	$(add_qt_dep qtwidgets)
+	$(add_qt_dep qtxml)
 	virtual/tex-base
 "
 RDEPEND="${DEPEND}
@@ -53,3 +54,14 @@ RDEPEND="${DEPEND}
 "
 
 S=${WORKDIR}/${P/_/-}
+
+PATCHES=(
+	"${FILESDIR}/${PN}-revert-removing-qtoauth.patch"
+	"${FILESDIR}/${PN}-part-revert-reenable-qtoauth.patch"
+)
+
+src_prepare() {
+	kde5_src_prepare
+
+	rm -r src/3rdparty/qoauth || die "Failed to remove bundled qoauth"
+}

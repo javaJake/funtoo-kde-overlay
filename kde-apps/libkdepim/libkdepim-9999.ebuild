@@ -20,20 +20,20 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kiconthemes)
 	$(add_frameworks_dep kitemviews)
 	$(add_frameworks_dep kwallet)
+	$(add_kdeapps_dep akonadi)
 	$(add_kdeapps_dep akonadi-contact)
 	$(add_kdeapps_dep akonadi-search)
 	$(add_kdeapps_dep kcontacts)
 	$(add_kdeapps_dep kldap)
 	$(add_kdeapps_dep kmime)
-	$(add_kdeapps_dep libakonadi)
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtnetwork:5
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtnetwork)
+	$(add_qt_dep qtwidgets)
 "
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
-	designer? ( dev-qt/designer:5 )
+	designer? ( $(add_qt_dep designer) )
 "
 RDEPEND="${COMMON_DEPEND}
 	!<kde-apps/kdepim-15.08.50:5

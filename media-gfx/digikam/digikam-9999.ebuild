@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_DOXYGEN="true"
 KDE_TEST="true"
@@ -37,24 +37,24 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kxmlgui)
 	$(add_frameworks_dep solid)
 	$(add_kdeapps_dep libkexiv2)
+	$(add_qt_dep qtconcurrent)
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtprintsupport)
+	$(add_qt_dep qtscript)
+	$(add_qt_dep qtsql 'mysql')
+	$(add_qt_dep qtwebkit)
+	$(add_qt_dep qtwidgets)
+	$(add_qt_dep qtxml)
 	dev-libs/boost[threads]
 	dev-libs/expat
-	dev-qt/qtconcurrent:5
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtprintsupport:5
-	dev-qt/qtscript:5
-	dev-qt/qtsql:5[mysql]
-	dev-qt/qtwebkit:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtxml:5
 	>=media-gfx/exiv2-0.24:=
 	media-libs/jasper
 	media-libs/lcms:2
 	media-libs/liblqr
 	>=media-libs/libpgf-6.12.27
 	media-libs/libpng:0=
-	>=media-libs/opencv-3.0.0
+	>=media-libs/opencv-3.0.0:=
 	media-libs/tiff:0
 	virtual/jpeg:0
 	addressbook? (
@@ -72,9 +72,9 @@ COMMON_DEPEND="
 	)
 	semantic-desktop? ( $(add_frameworks_dep kfilemetadata) )
 	mysql? ( virtual/mysql )
-	video? ( dev-qt/qtmultimedia[widgets] )
+	video? ( $(add_qt_dep qtmultimedia 'widgets') )
 	X? (
-		dev-qt/qtx11extras:5
+		$(add_qt_dep qtx11extras)
 		x11-libs/libX11
 	)
 "
@@ -109,13 +109,13 @@ src_configure() {
 	# LQR = only allows to choose between bundled/external
 	local mycmakeargs=(
 		-DENABLE_OPENCV3=ON
-		$(cmake-utils_use_enable addressbook AKONADICONTACTSUPPORT)
-		$(cmake-utils_use_enable semantic-desktop KFILEMETADATASUPPORT)
-		$(cmake-utils_use_enable mysql MYSQLSUPPORT)
-		$(cmake-utils_use_enable video MEDIAPLAYER)
-		$(cmake-utils_use_find_package gphoto2)
+		-DENABLE_AKONADICONTACTSUPPORT=$(usex addressbook)
+		-DENABLE_KFILEMETADATASUPPORT=$(usex semantic-desktop)
+		-DENABLE_MYSQLSUPPORT=$(usex mysql)
+		-DENABLE_MEDIAPLAYER=$(usex video)
+		$(cmake-utils_use_find_package gphoto2 Gphoto2)
 		$(cmake-utils_use_find_package lensfun LensFun)
-		$(cmake-utils_use_find_package marble)
+		$(cmake-utils_use_find_package marble Marble)
 		$(cmake-utils_use_find_package X X11)
 	)
 

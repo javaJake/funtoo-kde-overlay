@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit kde5
 
@@ -11,27 +11,21 @@ LICENSE="LGPL-2+"
 KEYWORDS=""
 IUSE=""
 
-RDEPEND="
-	$(add_frameworks_dep kcmutils)
+COMMON_DEPEND="
 	$(add_frameworks_dep kconfig)
-	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
 	$(add_frameworks_dep kdbusaddons)
-	$(add_frameworks_dep kdeclarative)
-	$(add_frameworks_dep kglobalaccel)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kio)
-	$(add_frameworks_dep kservice)
-	$(add_frameworks_dep kwidgetsaddons)
-	$(add_frameworks_dep kwindowsystem)
-	$(add_frameworks_dep kxmlgui)
-	dev-qt/qtdbus:5
-	dev-qt/qtdeclarative:5
-	dev-qt/qtgui:5
-	dev-qt/qtsql:5
-	dev-qt/qtwidgets:5
-	!<kde-base/kactivities-4.13.3-r1:4[-minimal(-)]
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtdeclarative widgets)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtsql)
+	$(add_qt_dep qtwidgets)
 "
-DEPEND="${RDEPEND}
-	|| ( >=dev-libs/boost-1.54 <dev-libs/boost-1.53 )
+RDEPEND="${COMMON_DEPEND}
+	$(add_plasma_dep kactivitymanagerd)
+"
+DEPEND="${COMMON_DEPEND}
+	>=dev-libs/boost-1.54
 "

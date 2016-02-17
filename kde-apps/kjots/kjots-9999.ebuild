@@ -8,6 +8,7 @@ inherit kde5
 
 DESCRIPTION="KDE note taking utility"
 HOMEPAGE="https://www.kde.org/applications/utilities/kjots/"
+
 KEYWORDS=""
 IUSE=""
 
@@ -24,17 +25,17 @@ RDEPEND="
 	$(add_frameworks_dep ktextwidgets)
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kxmlgui)
+	$(add_kdeapps_dep akonadi)
 	$(add_kdeapps_dep akonadi-notes)
 	$(add_kdeapps_dep kmime)
 	$(add_kdeapps_dep kontactinterface)
 	$(add_kdeapps_dep kpimtextedit)
-	$(add_kdeapps_dep libakonadi)
 	dev-libs/grantlee:5
 	dev-libs/libxslt
-	dev-qt/qtdbus:5
-	dev-qt/qtgui:5
-	dev-qt/qtprintsupport:5
-	dev-qt/qtwidgets:5
+	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtprintsupport)
+	$(add_qt_dep qtwidgets)
 "
 DEPEND="${RDEPEND}
 	sys-devel/gettext

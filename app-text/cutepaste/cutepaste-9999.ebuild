@@ -4,20 +4,17 @@
 
 EAPI=5
 
-KDE_REQUIRED="never"
-inherit kde4-base
+KDE_AUTODEPS="false"
+inherit kde5
 
 DESCRIPTION="Client application for paste.kde.org"
 HOMEPAGE="https://projects.kde.org/projects/playground/network/cutepaste"
-SRC_URI=""
-KEYWORDS=""
 
 LICENSE="GPL-2"
-SLOT="4"
-IUSE="debug"
+KEYWORDS=""
 
 DEPEND="
-	dev-qt/qtcore:5
-	dev-qt/qtnetwork:5
+	$(add_qt_dep qtcore)
+	$(add_qt_dep qtnetwork)
 "
 RDEPEND="${DEPEND}"
