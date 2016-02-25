@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_GCC_MINIMAL="4.9"
 KDE_HANDBOOK="forceoptional"
@@ -42,7 +42,7 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kxmlgui)
 	$(add_qt_dep qtconcurrent)
 	$(add_qt_dep qtdbus)
-	$(add_qt_dep qtdeclarative)
+	$(add_qt_dep qtdeclarative 'widgets')
 	$(add_qt_dep qtgui)
 	$(add_qt_dep qtprintsupport)
 	$(add_qt_dep qtscript)

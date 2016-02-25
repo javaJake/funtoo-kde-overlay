@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 KDE_HANDBOOK="forceoptional"
 inherit kde5
@@ -10,19 +10,20 @@ inherit kde5
 DESCRIPTION="A sound editor that can edit many types of audio files"
 HOMEPAGE="http://kwave.sourceforge.net/"
 if [[ ${KDE_BUILD_TYPE} != live ]]; then
-	SRC_URI="mirror://sourceforge/${PN}/${P}-2.tar.bz2"
+	SRC_URI="mirror://sourceforge/${PN}/${P}-1.tar.bz2"
 fi
 
 LICENSE="BSD GPL-2 LGPL-2
 	handbook? ( FDL-1.2 )"
 KEYWORDS=""
-IUSE="alsa flac mp3 qtmedia opus oss pulseaudio vorbis"
+IUSE="alsa flac mp3 +qtmedia opus oss pulseaudio vorbis"
 
 COMMON_DEPEND="
 	$(add_frameworks_dep kcompletion)
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
+	$(add_frameworks_dep kcrash)
 	$(add_frameworks_dep kdbusaddons)
 	$(add_frameworks_dep kguiaddons)
 	$(add_frameworks_dep ki18n)
@@ -45,7 +46,7 @@ COMMON_DEPEND="
 	mp3? (
 		media-libs/id3lib
 		media-libs/libmad
-		|| ( media-sound/lame media-sound/twolame media-sound/toolame )
+		|| ( media-sound/lame media-sound/toolame media-sound/twolame )
 	)
 	qtmedia? ( $(add_qt_dep qtmultimedia) )
 	opus? (
@@ -70,16 +71,16 @@ DOCS=( AUTHORS CHANGES README TODO )
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_with alsa)
-		$(cmake-utils_use_with handbook DOC)
-		$(cmake-utils_use_with flac)
-		$(cmake-utils_use_with mp3)
-		$(cmake-utils_use_with vorbis OGG_VORBIS)
-		$(cmake-utils_use_with opus OGG_OPUS)
-		$(cmake-utils_use_with oss)
-		$(cmake-utils_use_with pulseaudio)
-		$(cmake-utils_use_with qtmedia QT_AUDIO)
-		$(cmake-utils_use debug)
+		-DDEBUG=$(usex debug)
+		-DWITH_ALSA=$(usex alsa)
+		-DWITH_DOC=$(usex handbook)
+		-DWITH_FLAC=$(usex flac)
+		-DWITH_MP3=$(usex mp3)
+		-DWITH_OGG_VORBIS=$(usex vorbis)
+		-DWITH_OGG_OPUS=$(usex opus)
+		-DWITH_OSS=$(usex oss)
+		-DWITH_PULSEAUDIO=$(usex pulseaudio)
+		-DWITH_QT_AUDIO=$(usex qtmedia)
 	)
 
 	kde5_src_configure
