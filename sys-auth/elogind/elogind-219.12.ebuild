@@ -4,18 +4,18 @@
 
 EAPI=6
 
-inherit autotools pam
+inherit autotools eutils pam
 
 DESCRIPTION="The systemd project's logind, extracted to a standalone package"
-HOMEPAGE="https://github.com/andywingo/elogind"
-SRC_URI="https://github.com/andywingo/elogind/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="https://github.com/wingo/elogind"
+SRC_URI="https://github.com/wingo/elogind/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="CC0-1.0 LGPL-2.1+ public-domain"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
 IUSE="acl apparmor pam policykit selinux +seccomp"
 
-DEPEND="
+COMMON_DEPEND="
 	sys-libs/libcap
 	sys-apps/util-linux
 	virtual/libudev:=
@@ -25,9 +25,15 @@ DEPEND="
 	seccomp? ( sys-libs/libseccomp )
 	selinux? ( sys-libs/libselinux )
 "
-RDEPEND="${DEPEND}
+RDEPEND="${COMMON_DEPEND}
 	sys-apps/dbus
 	policykit? ( sys-auth/polkit )
+"
+DEPEND="${COMMON_DEPEND}
+	dev-util/gperf
+	dev-util/intltool
+	sys-devel/libtool
+	virtual/pkgconfig
 "
 
 DOCS=( NEWS README TODO )
@@ -49,4 +55,9 @@ src_configure() {
 		$(use_enable pam) \
 		$(use_enable seccomp) \
 		$(use_enable selinux)
+}
+
+src_install() {
+	default
+	prune_libtool_files --modules
 }
