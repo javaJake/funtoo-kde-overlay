@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 VIRTUALX_REQUIRED="test"
 inherit cmake-utils virtualx git-r3
@@ -26,7 +26,7 @@ DEPEND="${RDEPEND}
 	test? ( dev-qt/qttest:5 )
 "
 
-DOCS=( AUTHORS CHANGELOG README )
+DOCS=( AUTHORS CHANGELOG README.md )
 
 PATCHES=(
 	"${FILESDIR}/${PN}-0.3.0-nonfatal-warnings.patch"
@@ -48,7 +48,7 @@ src_compile() {
 }
 
 src_test() {
-	VIRTUALX_COMMAND="cmake-utils_src_test" virtualmake
+	virtx cmake-utils_src_test
 }
 
 src_install() {
