@@ -2,18 +2,18 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI=5
 
 KDE_HANDBOOK="forceoptional"
 inherit kde5
 
-DESCRIPTION="Kompare is a program to view the differences between files"
+DESCRIPTION="A program to view the differences between files"
 HOMEPAGE="https://www.kde.org/applications/development/kompare
 http://www.caffeinated.me.uk/kompare"
 KEYWORDS=" ~amd64 ~x86"
 IUSE=""
 
-RDEPEND="
+DEPEND="
 	$(add_frameworks_dep kcompletion)
 	$(add_frameworks_dep kcodecs)
 	$(add_frameworks_dep kconfig)
@@ -34,4 +34,4 @@ RDEPEND="
 	$(add_qt_dep qtwidgets)
 "
 
-DEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}"

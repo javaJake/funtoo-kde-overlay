@@ -12,7 +12,7 @@ KEYWORDS=" ~amd64 ~x86"
 IUSE=""
 
 DEPEND="
-	>=media-libs/libraw-0.16:=
 	$(add_qt_dep qtgui)
+	>=media-libs/libraw-0.16:=
 "
 RDEPEND="${DEPEND}"

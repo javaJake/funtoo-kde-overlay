@@ -12,9 +12,9 @@ KEYWORDS=" ~amd64 ~x86"
 IUSE=""
 
 DEPEND="
+	$(add_frameworks_dep kio)
 	$(add_kdeapps_dep libkdcraw)
 	$(add_kdeapps_dep libkexiv2)
-	$(add_frameworks_dep kio)
 	$(add_qt_dep qtgui)
 "
 RDEPEND="${DEPEND}"
