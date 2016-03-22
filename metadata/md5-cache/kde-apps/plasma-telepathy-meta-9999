@@ -6,5 +6,5 @@ IUSE=nls
 LICENSE=|| ( GPL-2 GPL-3 LGPL-2.1 )
 RDEPEND=>=kde-apps/ktp-accounts-kcm-9999 >=kde-apps/ktp-approver-9999 >=kde-apps/ktp-auth-handler-9999 >=kde-apps/ktp-call-ui-9999 >=kde-apps/ktp-common-internals-9999 >=kde-apps/ktp-contact-list-9999 >=kde-apps/ktp-contact-runner-9999 >=kde-apps/ktp-desktop-applets-9999 >=kde-apps/ktp-filetransfer-handler-9999 >=kde-apps/ktp-kded-module-9999 >=kde-apps/ktp-send-file-9999 >=kde-apps/ktp-text-ui-9999 !net-im/kde-telepathy-meta nls? ( >=kde-apps/ktp-l10n-14.12.0 ) !kde-apps/plasma-telepathy-meta:4
 SLOT=5
-_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	kde5-functions	dc6b7ab3d76bf689ec24aef6104337cc	kde5-meta-pkg	2597e0668860dcba2196f6403339d4cf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	kde5-functions	bc87cda404cf0dd3354ab10d686425b7	kde5-meta-pkg	2597e0668860dcba2196f6403339d4cf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=9f800ddeba467f76ffd4cc2123565be1
