@@ -1,0 +1,10 @@
+DEFINED_PHASES=-
+DESCRIPTION=kdeutils - merge this to pull in all kdeutils-derived packages
+EAPI=6
+HOMEPAGE=https://www.kde.org/applications/utilities https://utils.kde.org
+IUSE=cups floppy lirc
+LICENSE=metapackage
+RDEPEND=>=kde-apps/ark-16.04.49 >=kde-apps/filelight-16.04.49 >=kde-apps/kcalc-16.04.49 >=kde-apps/kcharselect-16.04.49 >=kde-apps/kdebugsettings-16.04.49 >=kde-apps/kdf-16.04.49 >=kde-apps/kteatime-16.04.49 >=kde-apps/ktimer-16.04.49 >=kde-apps/kwalletmanager-16.04.49 >=kde-apps/sweeper-16.04.49 cups? ( >=kde-apps/print-manager-16.04.49 ) floppy? ( >=kde-apps/kfloppy-16.04.49 ) lirc? ( >=kde-apps/kremotecontrol-16.04.49 ) !kde-apps/kdeutils-meta:4
+SLOT=5
+_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	kde5-functions	324130c9b06b57d5e15a6fb1c713d305	kde5-meta-pkg	2597e0668860dcba2196f6403339d4cf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=d0dc7691396fa7814a9bbfe15babed12

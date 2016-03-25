@@ -1,0 +1,10 @@
+DEFINED_PHASES=-
+DESCRIPTION=KDE PIM - merge this to pull in all kdepim-derived packages
+EAPI=6
+HOMEPAGE=https://www.kde.org/applications/development
+IUSE=nls
+LICENSE=metapackage
+RDEPEND=>=kde-apps/akonadi-16.04.49 >=kde-apps/akonadiconsole-16.04.49 >=kde-apps/akonadi-calendar-16.04.49 >=kde-apps/akonadi-contact-16.04.49 >=kde-apps/akonadi-mime-16.04.49 >=kde-apps/akonadi-notes-16.04.49 >=kde-apps/akonadi-search-16.04.49 >=kde-apps/akonadi-socialutils-16.04.49 >=kde-apps/akregator-16.04.49 >=kde-apps/blogilo-16.04.49 >=kde-apps/calendarjanitor-16.04.49 >=kde-apps/calendarsupport-16.04.49 >=kde-apps/eventviews-16.04.49 >=kde-apps/gpgmepp-16.04.49 >=kde-apps/grantleetheme-16.04.49 >=kde-apps/incidenceeditor-16.04.49 >=kde-apps/kaddressbook-16.04.49 >=kde-apps/kalarmcal-16.04.49 >=kde-apps/kblog-16.04.49 >=kde-apps/kcalcore-16.04.49 >=kde-apps/kcalutils-16.04.49 >=kde-apps/kcontacts-16.04.49 >=kde-apps/kdepim-16.04.49 >=kde-apps/kdepim-apps-libs-16.04.49 >=kde-apps/kdepim-kioslaves-16.04.49 >=kde-apps/kdepim-runtime-16.04.49 >=kde-apps/kdgantt2-16.04.49 >=kde-apps/kholidays-16.04.49 >=kde-apps/kidentitymanagement-16.04.49 >=kde-apps/kimap-16.04.49 >=kde-apps/kldap-16.04.49 >=kde-apps/kleopatra-16.04.49 >=kde-apps/kmailtransport-16.04.49 >=kde-apps/kmbox-16.04.49 >=kde-apps/kmime-16.04.49 >=kde-apps/knotes-16.04.49 >=kde-apps/konsolekalendar-16.04.49 >=kde-apps/kontactinterface-16.04.49 >=kde-apps/kpimtextedit-16.04.49 >=kde-apps/ktnef-16.04.49 >=kde-apps/libgravatar-16.04.49 >=kde-apps/libkdepim-16.04.49 >=kde-apps/libkleo-16.04.49 >=kde-apps/libksieve-16.04.49 >=kde-apps/libktnef-16.04.49 >=kde-apps/mailcommon-16.04.49 >=kde-apps/mailimporter-16.04.49 >=kde-apps/messagelib-16.04.49 >=kde-apps/pimcommon-16.04.49 >=kde-apps/syndication-16.04.49 nls? ( >=kde-apps/kdepim-l10n-14.12.0 ) !kde-apps/kdepim-meta:4
+SLOT=5
+_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	kde5-functions	324130c9b06b57d5e15a6fb1c713d305	kde5-meta-pkg	2597e0668860dcba2196f6403339d4cf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=06093a2bf84da453c763a87f4cb367b4
