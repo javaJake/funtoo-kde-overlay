@@ -4,7 +4,7 @@
 
 EAPI=5
 
-KDE_HANDBOOK="true"
+KDE_HANDBOOK="forceoptional"
 inherit kde5
 
 DESCRIPTION="Mathematical function plotter"
@@ -12,7 +12,7 @@ HOMEPAGE="https://www.kde.org/applications/education/kmplot https://edu.kde.org/
 KEYWORDS=" ~amd64 ~x86"
 IUSE=""
 
-RDEPEND="
+DEPEND="
 	$(add_frameworks_dep kcompletion)
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
@@ -32,4 +32,4 @@ RDEPEND="
 	$(add_qt_dep qtwidgets)
 	$(add_qt_dep qtxml)
 "
-DEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}"

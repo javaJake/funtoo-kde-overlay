@@ -32,7 +32,6 @@ RDEPEND="
 	$(add_kdeapps_dep ktouch)
 	$(add_kdeapps_dep kturtle)
 	$(add_kdeapps_dep kwordquiz)
-	$(add_kdeapps_dep libkdeedu)
 	$(add_kdeapps_dep libkeduvocdocument)
 	$(add_kdeapps_dep marble)
 	$(add_kdeapps_dep parley)

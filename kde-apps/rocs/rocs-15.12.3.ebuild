@@ -46,4 +46,4 @@ DEPEND="${RDEPEND}
 
 RESTRICT=test	# 1/10 tests currently fails
 
-PATCHES=( "${FILESDIR}/${PN}-15.12.2-doctools-optional.patch" )
+PATCHES=( "${FILESDIR}/${P}-doctools-optional.patch" )

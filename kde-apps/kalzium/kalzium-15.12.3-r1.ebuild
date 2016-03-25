@@ -16,7 +16,6 @@ KEYWORDS=" ~amd64 ~x86"
 IUSE="editor debug solver"
 
 DEPEND="
-	$(add_kdeapps_dep libkdeedu)
 	editor? (
 		>=dev-cpp/eigen-2.0.3:2
 		sci-chemistry/avogadro

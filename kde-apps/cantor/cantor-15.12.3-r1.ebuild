@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-KDE_HANDBOOK="true"
-KDE_TEST="true"
+KDE_HANDBOOK="forceoptional"
+KDE_TEST="forceoptional"
 PYTHON_COMPAT=( python2_7 )
-# FIXME: PYTHON_COMPAT=( python{2_7,3_2,3_3,3_4} )
+# FIXME: PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
 inherit kde5 python-r1
 
 DESCRIPTION="Interface for doing mathematics and scientific computing"
@@ -28,6 +28,7 @@ RDEPEND="
 	$(add_frameworks_dep kcrash)
 	$(add_frameworks_dep kdelibs4support)
 	$(add_frameworks_dep ki18n)
+	$(add_frameworks_dep kio)
 	$(add_frameworks_dep knewstuff)
 	$(add_frameworks_dep kparts)
 	$(add_frameworks_dep kpty)
@@ -55,15 +56,26 @@ DEPEND="${RDEPEND}
 
 RESTRICT="test"
 
+PATCHES=( "${FILESDIR}/${P}-tests.patch" )
+
 pkg_setup() {
 	use python && python_setup
 	kde5_pkg_setup
 }
 
 src_prepare() {
+	kde5_src_prepare
+
 	# FIXME: shipped FindPythonLibs3.cmake does not work for Gentoo
-	sed -e '/^find_package(PythonLibs3)/ s/^/#/' \
+	sed -e "/^find_package(PythonLibs3)/ s/^/#/" \
 		-i src/backends/CMakeLists.txt || die
+
+	if ! use test ; then
+		sed -e "/add_subdirectory(test)/ s/^/#DONT/" \
+			-i src/lib/CMakeLists.txt || die
+		sed -e "/add_subdirectory(tests)/ s/^/#DONT/" \
+			-i src/backends/python3/CMakeLists.txt || die
+	fi
 }
 
 src_configure() {
@@ -72,8 +84,8 @@ src_configure() {
 		$(cmake-utils_use_find_package lua LuaJIT)
 		$(cmake-utils_use_find_package postscript LibSpectre)
 		$(cmake-utils_use_find_package python PythonLibs)
-		$(cmake-utils_use_find_package qalculate)
-		$(cmake-utils_use_find_package R)
+		$(cmake-utils_use_find_package qalculate Qalculate)
+		$(cmake-utils_use_find_package R R)
 	)
 	kde5_src_configure
 }

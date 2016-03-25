@@ -19,3 +19,13 @@ DEPEND="
 	$(add_qt_dep qtxml)
 "
 RDEPEND="${DEPEND}"
+
+src_prepare(){
+	kde5_src_prepare
+
+	if ! use test; then
+		sed -e "/add_subdirectory(autotests)/ s/^/#DONT/" \
+			-e "/add_subdirectory(tests)/ s/^/#DONT/" \
+			-i keduvocdocument/CMakeLists.txt
+	fi
+}
