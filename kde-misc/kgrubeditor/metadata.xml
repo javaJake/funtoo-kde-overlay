@@ -5,4 +5,9 @@
 		<email>kde@gentoo.org</email>
 		<name>Gentoo KDE Project</name>
 	</maintainer>
+	<longdescription lang="en">
+</longdescription>
+	<upstream>
+		<remote-id type="sourceforge">kgrubeditor</remote-id>
+	</upstream>
 </pkgmetadata>
