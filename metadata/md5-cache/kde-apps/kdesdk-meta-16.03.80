@@ -1,0 +1,11 @@
+DEFINED_PHASES=-
+DESCRIPTION=KDE SDK - merge this to pull in all kdesdk-derived packages
+EAPI=6
+HOMEPAGE=https://www.kde.org/applications/development
+IUSE=cvs
+KEYWORDS=~amd64 ~arm ~x86
+LICENSE=metapackage
+RDEPEND=>=kde-apps/dolphin-plugins-16.03.80 >=kde-apps/kapptemplate-16.03.80 >=kde-apps/kate-16.03.80 >=kde-apps/kcachegrind-16.03.80 >=kde-apps/kde-dev-scripts-16.03.80 >=kde-apps/kde-dev-utils-16.03.80 >=kde-apps/kdesdk-kioslaves-16.03.80 >=kde-apps/kompare-16.03.80 >=kde-apps/libkomparediff2-16.03.80 >=kde-apps/lokalize-16.03.80 >=kde-apps/okteta-16.03.80 >=kde-apps/poxml-16.03.80 >=kde-apps/umbrello-16.03.80 cvs? ( >=kde-apps/cervisia-16.03.80 ) !kde-apps/kdesdk-meta:4
+SLOT=5
+_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	kde5-functions	324130c9b06b57d5e15a6fb1c713d305	kde5-meta-pkg	2597e0668860dcba2196f6403339d4cf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=d98d1efff51639921ea8ca039070ff17
