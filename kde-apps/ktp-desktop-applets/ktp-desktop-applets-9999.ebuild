@@ -9,17 +9,16 @@ inherit kde5
 DESCRIPTION="KDE Telepathy contact, presence and chat Plasma applets"
 HOMEPAGE="https://community.kde.org/Real-Time_Communication_and_Collaboration"
 
-LICENSE="GPL-2 LGPL-2.1"
+LICENSE="|| ( GPL-2 GPL-3 ) GPL-2+ LGPL-2.1+"
 KEYWORDS=""
 IUSE=""
 
-COMMON_DEPEND="
+DEPEND="
+	$(add_frameworks_dep kdeclarative)
 	$(add_frameworks_dep kwindowsystem)
+	$(add_frameworks_dep plasma)
 	$(add_qt_dep qtdeclarative)
 "
-DEPEND="${COMMON_DEPEND}
-	$(add_frameworks_dep plasma)
-"
-RDEPEND="${COMMON_DEPEND}
+RDEPEND="${DEPEND}
 	!net-im/ktp-desktop-applets
 "
