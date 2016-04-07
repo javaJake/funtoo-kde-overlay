@@ -1,0 +1,11 @@
+DEFINED_PHASES=-
+DESCRIPTION=Merge this to pull in all kdebase-runtime-derived packages
+EAPI=6
+HOMEPAGE=https://www.kde.org/
+IUSE=+oldwallet pam
+KEYWORDS=~amd64 ~x86
+LICENSE=metapackage
+RDEPEND=>=kde-apps/kcmshell-16.03.90 >=kde-apps/kdebase-data-16.03.90 >=kde-apps/kdebase-desktoptheme-16.03.90 >=kde-apps/kdebase-menu-16.03.90 >=kde-apps/kdebase-menu-icons-16.03.90 >=kde-apps/kdebugdialog-16.03.90 >=kde-apps/kdesu-16.03.90[-handbook] >=kde-apps/kdontchangethehostname-16.03.90 >=kde-apps/keditfiletype-16.03.90 >=kde-apps/kfile-16.03.90 >=kde-apps/kiconfinder-16.03.90 >=kde-apps/kimgio-16.03.90 >=kde-apps/kioclient-16.03.90 >=kde-apps/kmimetypefinder-16.03.90 >=kde-apps/knewstuff-16.03.90 >=kde-apps/knotify-16.03.90 >=kde-apps/kpasswdserver-16.03.90 >=kde-apps/kquitapp-16.03.90 >=kde-apps/kreadconfig-16.03.90 >=kde-apps/kstart-16.03.90 >=kde-apps/ktimezoned-16.03.90 >=kde-apps/ktraderclient-16.03.90 >=kde-apps/kurifilter-plugins-16.03.90 >=kde-apps/phonon-kde-16.03.90 >=kde-apps/plasma-runtime-16.03.90 >=kde-apps/renamedlg-plugins-16.03.90 >=kde-apps/solid-runtime-16.03.90[-bluetooth] oldwallet? ( >=kde-apps/kwalletd-16.03.90 pam? ( kde-apps/kwalletd-pam:4 ) ) !kde-apps/kdebase-runtime-meta:4
+SLOT=5
+_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	kde5-functions	c21891a5d1754aca27f95b193c38d505	kde5-meta-pkg	2597e0668860dcba2196f6403339d4cf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=91b4619d46420f61278a5b4631c34c4d
