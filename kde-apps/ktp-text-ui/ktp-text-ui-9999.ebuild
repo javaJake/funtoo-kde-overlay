@@ -9,9 +9,9 @@ inherit kde5
 DESCRIPTION="KDE Telepathy text chat window"
 HOMEPAGE="https://community.kde.org/Real-Time_Communication_and_Collaboration"
 
-LICENSE="GPL-2"
+LICENSE="Apache-2.0 || ( AFL-2.1 BSD ) GPL-2+ LGPL-2.1+ MIT"
 KEYWORDS=""
-IUSE=""
+IUSE="speech"
 
 DEPEND="
 	$(add_frameworks_dep karchive)
@@ -19,6 +19,7 @@ DEPEND="
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
+	$(add_frameworks_dep kdbusaddons)
 	$(add_frameworks_dep kdewebkit)
 	$(add_frameworks_dep kemoticons)
 	$(add_frameworks_dep ki18n)
@@ -41,8 +42,17 @@ DEPEND="
 	$(add_qt_dep qtwidgets)
 	$(add_qt_dep qtxml)
 	net-libs/telepathy-qt[qt5]
+	speech? ( $(add_qt_dep qtspeech) )
 "
 RDEPEND="${DEPEND}
 	$(add_kdeapps_dep ktp-contact-list)
 	!net-im/ktp-text-ui
 "
+
+src_configure() {
+	local mycmakeargs=(
+		$(cmake-utils_use_find_package speech Qt5TextToSpeech)
+	)
+
+	kde5_src_configure
+}
