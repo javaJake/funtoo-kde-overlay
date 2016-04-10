@@ -6,5 +6,5 @@ IUSE=+cron
 LICENSE=metapackage
 RDEPEND=>=kde-apps/ksystemlog-16.04.49 cron? ( >=kde-apps/kcron-16.04.49 ) !kde-apps/kdeadmin-meta:4
 SLOT=5
-_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	kde5-functions	a87d1abac63471ad6c7a924a5249a948	kde5-meta-pkg	2597e0668860dcba2196f6403339d4cf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	7a212e5e01adfa4805c9978366e6ee85	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	kde5-functions	a87d1abac63471ad6c7a924a5249a948	kde5-meta-pkg	2597e0668860dcba2196f6403339d4cf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	d513d423d449877e49d99af3f7af7acb	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=36b194e2d6d587d5ac488ecb80926c12
