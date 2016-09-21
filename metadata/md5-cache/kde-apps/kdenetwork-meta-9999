@@ -2,9 +2,9 @@ DEFINED_PHASES=-
 DESCRIPTION=kdenetwork - merge this to pull in all kdenetwork-derived packages
 EAPI=6
 HOMEPAGE=https://www.kde.org/
-IUSE=ppp +telepathy
+IUSE=nls ppp +telepathy
 LICENSE=metapackage
-RDEPEND=>=kde-apps/kdenetwork-filesharing-9999 >=kde-apps/kget-9999 >=kde-apps/krdc-9999 >=kde-apps/krfb-9999 >=kde-apps/zeroconf-ioslave-9999 ppp? ( >=kde-apps/kppp-9999 ) telepathy? ( >=kde-apps/plasma-telepathy-meta-9999 ) !telepathy? ( >=kde-apps/kopete-9999 ) !kde-apps/kdenetwork-meta:4
+RDEPEND=>=kde-apps/kdenetwork-filesharing-9999 >=kde-apps/kget-9999 >=kde-apps/krdc-9999 >=kde-apps/krfb-9999 >=kde-apps/zeroconf-ioslave-9999 nls? ( >=kde-apps/kde-l10n-14.12.0 >=kde-apps/kde4-l10n-14.12.0 ) ppp? ( >=kde-apps/kppp-9999 ) telepathy? ( >=kde-apps/plasma-telepathy-meta-9999 ) !telepathy? ( >=kde-apps/kopete-9999 )
 SLOT=5
-_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	kde5-functions	a87d1abac63471ad6c7a924a5249a948	kde5-meta-pkg	2597e0668860dcba2196f6403339d4cf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	d513d423d449877e49d99af3f7af7acb	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=3e705fb8998f4bdcfa1451516647f10e
+_eclasses_=eutils	b83a2420b796f7c6eff682679d08fe25	kde5-functions	59d60b16fb2817a6e0eddda11a6c31e4	kde5-meta-pkg	c95f4a5ee487f170647a3b1bac69ce7d	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	6198c04daba0e1307bd844df7d37f423	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=d73748c5ca064d0ff0e0bd410c62a51c

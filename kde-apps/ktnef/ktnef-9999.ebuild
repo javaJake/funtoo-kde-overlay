@@ -4,13 +4,13 @@
 
 EAPI=6
 
-KDE_HANDBOOK="true"
-KDE_PUNT_BOGUS_DEPS="true"
-KMNAME="kdepim"
+KDE_HANDBOOK="forceoptional"
+KMNAME="kmail"
 inherit kde5
 
-DESCRIPTION="A viewer for TNEF attachments"
+DESCRIPTION="Viewer for TNEF attachments (proprietary MS Outlook/Exchange Server format)"
 HOMEPAGE="https://www.kde.org/"
+LICENSE="GPL-2+ handbook? ( FDL-1.2+ )"
 KEYWORDS=""
 IUSE=""
 
@@ -18,6 +18,7 @@ DEPEND="
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
+	$(add_frameworks_dep kcrash)
 	$(add_frameworks_dep kdbusaddons)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kio)
@@ -27,25 +28,7 @@ DEPEND="
 	$(add_kdeapps_dep libktnef)
 	$(add_qt_dep qtgui)
 	$(add_qt_dep qtwidgets)
-	dev-libs/libxslt
 "
-RDEPEND="${DEPEND}
-	!<kde-apps/kdepim-15.12.1-r2:5
-"
+RDEPEND="${DEPEND}"
 
-if [[ ${KDE_BUILD_TYPE} = live ]] ; then
-	S="${WORKDIR}/${P}"
-else
-	S="${WORKDIR}/${KMNAME}-${PV}"
-fi
-
-src_configure() {
-	local mycmakeargs=(
-		-DCMAKE_DISABLE_FIND_PACKAGE_KF5GAPI=ON
-		-DCMAKE_DISABLE_FIND_PACKAGE_KF5Prison=ON
-		-DCMAKE_DISABLE_FIND_PACKAGE_Qt5Designer=ON
-		-DCMAKE_DISABLE_FIND_PACKAGE_Qt5X11Extras=ON
-	)
-
-	kde5_src_configure
-}
+S="${S}/${PN}"

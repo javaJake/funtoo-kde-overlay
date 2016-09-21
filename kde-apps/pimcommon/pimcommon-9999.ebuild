@@ -4,15 +4,17 @@
 
 EAPI=6
 
+KDE_DESIGNERPLUGIN="true"
 KDE_TEST="forceoptional"
+VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="Common PIM libraries"
-LICENSE="LGPL-2+"
+LICENSE="GPL-2+ LGPL-2.1+"
 KEYWORDS=""
-IUSE="designer"
+IUSE=""
 
-COMMON_DEPEND="
+RDEPEND="
 	$(add_frameworks_dep karchive)
 	$(add_frameworks_dep kcodecs)
 	$(add_frameworks_dep kcompletion)
@@ -33,7 +35,7 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
 	$(add_kdeapps_dep akonadi)
-	$(add_kdeapps_dep akonadi-contact)
+	$(add_kdeapps_dep akonadi-contacts)
 	$(add_kdeapps_dep akonadi-mime)
 	$(add_kdeapps_dep kcontacts)
 	$(add_kdeapps_dep kimap)
@@ -43,24 +45,12 @@ COMMON_DEPEND="
 	$(add_qt_dep qtdbus)
 	$(add_qt_dep qtgui)
 	$(add_qt_dep qtnetwork)
-	$(add_qt_dep qtwebkit)
+	$(add_qt_dep qtprintsupport)
+	$(add_qt_dep qtwebengine 'widgets')
 	$(add_qt_dep qtwidgets)
 	$(add_qt_dep qtxml)
 	dev-libs/grantlee:5
+"
+DEPEND="${RDEPEND}
 	dev-libs/libxslt
 "
-DEPEND="${COMMON_DEPEND}
-	sys-devel/gettext
-	designer? ( $(add_qt_dep designer) )
-"
-RDEPEND="${COMMON_DEPEND}
-	!<kde-apps/kdepim-15.08.50:5
-	!kde-apps/kdepim-common-libs:4
-"
-
-src_configure() {
-	local mycmakeargs=(
-		$(cmake-utils_use_find_package designer Qt5Designer)
-	)
-	kde5_src_configure
-}

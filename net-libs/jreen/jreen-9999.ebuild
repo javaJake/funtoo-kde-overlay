@@ -9,7 +9,7 @@ if [[ ${PV} != *9999* ]]; then
 	KEYWORDS="~amd64 ~ppc ~x86"
 else
 	GIT_ECLASS="git-r3"
-	EGIT_REPO_URI=( "git://github.com/euroelessar/${PN}" )
+	EGIT_REPO_URI=( "https://github.com/euroelessar/${PN}" )
 	KEYWORDS=""
 fi
 
@@ -67,10 +67,10 @@ src_compile() {
 	multibuild_foreach_variant cmake-utils_src_compile
 }
 
-src_install() {
-	multibuild_foreach_variant cmake-utils_src_install
-}
-
 src_test() {
 	multibuild_foreach_variant cmake-utils_src_test
+}
+
+src_install() {
+	multibuild_foreach_variant cmake-utils_src_install
 }

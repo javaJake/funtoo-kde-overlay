@@ -1,11 +1,10 @@
 DEFINED_PHASES=compile configure install prepare test unpack
-DEPEND=>=media-libs/oyranos-0.9.6 qt5? ( dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtwidgets:5 ) !qt5? ( dev-qt/qtcore:4 dev-qt/qtgui:4 ) sys-devel/make >=dev-util/cmake-2.8.12 >=dev-vcs/git-1.8.2.1
+DEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtwidgets:5 >=media-libs/oyranos-0.9.6 sys-devel/make >=dev-util/cmake-2.8.12 >=dev-vcs/git-1.8.2.1
 DESCRIPTION=Qt front end for the Oyranos Color Management System
 EAPI=6
 HOMEPAGE=https://github.com/oyranos-cms/Synnefo
-IUSE=qt5
 LICENSE=BSD-2
-RDEPEND=>=media-libs/oyranos-0.9.6 qt5? ( dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtwidgets:5 ) !qt5? ( dev-qt/qtcore:4 dev-qt/qtgui:4 ) x11-misc/xcalib
+RDEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtwidgets:5 >=media-libs/oyranos-0.9.6 x11-misc/xcalib
 SLOT=0
-_eclasses_=cmake-utils	422bbd1bee2557490177a34dbe0a662b	eutils	9d81603248f2ba3ec59124320d123e5e	flag-o-matic	d270fa247153df66074f795fa42dba3e	git-r3	ef66dfc3db09f327af21cf32f140fb2b	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	d513d423d449877e49d99af3f7af7acb	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=2f1e2639a937a43ab6fc2ca8b434fa0f
+_eclasses_=cmake-utils	f3d38665b0a86e08ba3a5473cdbfafd3	eutils	b83a2420b796f7c6eff682679d08fe25	flag-o-matic	8632fcd33a047954f007dee9a137bdcc	git-r3	00f60a84fc7b499c99edfe99caea9f95	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	6198c04daba0e1307bd844df7d37f423	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=08190e26c3f760e062779c7ab32c16c6

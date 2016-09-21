@@ -10,7 +10,7 @@ inherit kde5
 DESCRIPTION="Framework easing the development transition from KDE 4 to KF 5"
 LICENSE="LGPL-2+"
 KEYWORDS=""
-IUSE="X"
+IUSE="libressl X"
 
 COMMON_DEPEND="
 	$(add_frameworks_dep kauth)
@@ -39,8 +39,6 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
 	$(add_frameworks_dep solid)
-	app-text/docbook-xml-dtd:4.2
-	dev-libs/openssl:0
 	$(add_qt_dep qtdbus)
 	$(add_qt_dep qtgui)
 	$(add_qt_dep qtnetwork 'ssl')
@@ -48,7 +46,10 @@ COMMON_DEPEND="
 	$(add_qt_dep qtsvg)
 	$(add_qt_dep qttest)
 	$(add_qt_dep qtwidgets)
+	app-text/docbook-xml-dtd:4.2
 	virtual/libintl
+	!libressl? ( dev-libs/openssl:0 )
+	libressl? ( dev-libs/libressl )
 	X? (
 		$(add_qt_dep qtx11extras)
 		x11-libs/libICE
@@ -63,6 +64,7 @@ RDEPEND="${COMMON_DEPEND}
 	$(add_frameworks_dep kitemmodels)
 	$(add_qt_dep qtxml)
 	!<kde-apps/kcontrol-15.08.0[handbook]
+	!<kde-apps/kde4-l10n-16.04.3
 "
 DEPEND="${COMMON_DEPEND}
 	$(add_frameworks_dep kdoctools)
@@ -73,7 +75,7 @@ DEPEND="${COMMON_DEPEND}
 	X? ( x11-proto/xproto )
 "
 
-RESTRICT="test"
+RESTRICT+=" test"
 
 src_configure() {
 	local mycmakeargs=(

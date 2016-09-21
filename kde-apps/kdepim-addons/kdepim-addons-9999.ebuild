@@ -5,15 +5,16 @@
 EAPI=6
 
 KDE_EXAMPLES="true"
-KDE_TEST="forceoptional"
+KDE_TEST="forceoptional-recursive"
+VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="Plugins for KDE Personal Information Management Suite"
 HOMEPAGE="https://www.kde.org/applications/office/kontact/"
+LICENSE="GPL-2+ LGPL-2.1+"
 KEYWORDS=""
 
-PIM_FTS="akregator kaddressbook kmail korganizer"
-IUSE="google $(printf 'kdepim_features_%s ' ${PIM_FTS})"
+IUSE="google"
 
 COMMON_DEPEND="
 	$(add_frameworks_dep kcompletion)
@@ -51,25 +52,13 @@ COMMON_DEPEND="
 "
 DEPEND="${COMMON_DEPEND}
 	$(add_kdeapps_dep gpgmepp)
-	sys-devel/gettext
 "
 RDEPEND="${COMMON_DEPEND}
-	!<kde-apps/kdepim-15.12.50:5
-	!kde-apps/messageviewer:5
-	!<kde-apps/pimcommon-15.12.50:5
 	!kde-apps/kaddressbook:4
 	!kde-apps/kmail:4
-	!kde-apps/korganizer:4
-	$(add_kdeapps_dep kdepim)
 "
 
-src_prepare() {
-	kde5_src_prepare
-
-	for pim_ft in ${PIM_FTS}; do
-		use kdepim_features_${pim_ft} || cmake_comment_add_subdirectory ${pim_ft}
-	done
-}
+RESTRICT+=" test"
 
 src_configure() {
 	local mycmakeargs=(

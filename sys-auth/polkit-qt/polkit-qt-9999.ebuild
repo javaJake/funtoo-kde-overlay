@@ -8,7 +8,7 @@ inherit cmake-utils multibuild git-r3
 
 DESCRIPTION="PolicyKit Qt4 API wrapper library"
 HOMEPAGE="http://www.kde.org/"
-EGIT_REPO_URI=( "git://anongit.kde.org/polkit-qt-1" )
+EGIT_REPO_URI=( "https://anongit.kde.org/polkit-qt-1" )
 
 LICENSE="LGPL-2"
 SLOT="0"
@@ -63,6 +63,10 @@ src_configure() {
 
 src_compile() {
 	multibuild_foreach_variant cmake-utils_src_compile
+}
+
+src_test() {
+	multibuild_foreach_variant cmake-utils_src_test
 }
 
 src_install() {

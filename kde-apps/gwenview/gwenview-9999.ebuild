@@ -6,6 +6,7 @@ EAPI=6
 
 KDE_HANDBOOK="true"
 KDE_TEST="true"
+QT_MINIMAL="5.7.0"
 inherit kde5
 
 DESCRIPTION="KDE image viewer"
@@ -13,6 +14,8 @@ HOMEPAGE="
 	https://www.kde.org/applications/graphics/gwenview/
 	https://userbase.kde.org/Gwenview
 "
+
+LICENSE="GPL-2+ handbook? ( FDL-1.2 )"
 KEYWORDS=""
 IUSE="kipi raw semantic-desktop X"
 

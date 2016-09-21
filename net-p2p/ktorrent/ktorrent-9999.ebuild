@@ -14,10 +14,10 @@ if [[ ${PV} != 9999* ]]; then
 	LIBKT_VERSION_MAX=$(($(get_major_version)-3)).$(($(get_version_component_range 2)+1))
 	MY_P="${PN}-${MY_PV}"
 
-	SRC_URI="http://ktorrent.org/downloads/${MY_PV}/${MY_P}.tar.bz2"
+	SRC_URI="mirror://kde/stable/${PN}/$(get_version_component_range 1-2)/${MY_P}.tar.xz"
 	S="${WORKDIR}"/"${MY_P}"
 
-	KEYWORDS="~amd64 ~ppc ~x86"
+	KEYWORDS="~amd64 ~x86"
 else
 	LIBKT_VERSION_MIN="${PV}"
 	LIBKT_VERSION_MAX="99999999"
@@ -31,18 +31,20 @@ DESCRIPTION="Powerful BitTorrent client based on KDE Frameworks"
 HOMEPAGE="http://ktorrent.pwsp.net/"
 
 LICENSE="GPL-2"
-IUSE="+bwscheduler +downloadorder +infowidget +logviewer
-+magnetgenerator +mediaplayer +shutdown +upnp +zeroconf"
+IUSE="+bwscheduler +downloadorder +infowidget +kross +logviewer
++magnetgenerator +mediaplayer rss +scanfolder +shutdown +stats
++upnp +zeroconf"
 
 COMMON_DEPEND="
 	$(add_frameworks_dep karchive)
 	$(add_frameworks_dep kcmutils)
+	$(add_frameworks_dep kcompletion)
 	$(add_frameworks_dep kconfig)
+	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
 	$(add_frameworks_dep kcrash)
 	$(add_frameworks_dep kdbusaddons)
 	$(add_frameworks_dep kdelibs4support)
-	$(add_frameworks_dep kdewebkit)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kiconthemes)
 	$(add_frameworks_dep kio)
@@ -51,52 +53,48 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kparts)
 	$(add_frameworks_dep kservice)
 	$(add_frameworks_dep kwidgetsaddons)
+	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
 	$(add_frameworks_dep solid)
-	$(add_frameworks_dep sonnet)
 	$(add_qt_dep qtdbus)
 	$(add_qt_dep qtgui)
-	$(add_qt_dep qtdeclarative)
 	$(add_qt_dep qtnetwork)
 	$(add_qt_dep qtwidgets)
 	<net-libs/libktorrent-${LIBKT_VERSION_MAX}:5
 	>=net-libs/libktorrent-${LIBKT_VERSION_MIN}:5
 	infowidget? ( dev-libs/geoip )
+	kross? ( $(add_frameworks_dep kross) )
 	mediaplayer? (
 		media-libs/phonon[qt5]
 		>=media-libs/taglib-1.5
 	)
+	rss? (
+		$(add_frameworks_dep kdewebkit)
+		$(add_kdeapps_dep syndication)
+	)
 	shutdown? ( $(add_plasma_dep plasma-workspace) )
+	stats? ( $(add_frameworks_dep kplotting) )
 	zeroconf? ( $(add_frameworks_dep kdnssd) )
 "
 DEPEND="${COMMON_DEPEND}
-	dev-libs/boost:=
+	dev-libs/boost
 	sys-devel/gettext
 "
 RDEPEND="${COMMON_DEPEND}
 	!net-p2p/ktorrent:4
 "
-# add back when ported - DEPEND
-# 	kross? ( $(add_frameworks_dep kross) )
-# 	rss? ( $(add_kdeapps_dep kdepimlibs) )
 # add back when ported - RDEPEND
 # 	ipfilter? (
 # 		app-arch/bzip2
 # 		app-arch/unzip
 # 		$(add_kdeapps_dep kdebase-kioslaves)
 # 	)
-# 	kross? ( $(add_kdebase_dep krosspython) )
 
-# src_prepare() {
-# add back when ported
-# 	if ! use plasma; then
-# 		sed -i \
-# 			-e "s:add_subdirectory(plasma):#nada:g" \
-# 			CMakeLists.txt || die "Failed to make plasmoid optional"
-# 	fi
-# 
-# 	kde5_src_prepare
-# }
+src_prepare() {
+	kde5_src_prepare
+
+	use kross || punt_bogus_dep KF5 Kross
+}
 
 src_configure() {
 	local mycmakeargs=(
@@ -104,20 +102,20 @@ src_configure() {
 		-DENABLE_DOWNLOADORDER_PLUGIN=$(usex downloadorder)
 		-DENABLE_INFOWIDGET_PLUGIN=$(usex infowidget)
 		-DWITH_SYSTEM_GEOIP=$(usex infowidget)
+		-DENABLE_SCRIPTING_PLUGIN=$(usex kross)
 		-DENABLE_LOGVIEWER_PLUGIN=$(usex logviewer)
 		-DENABLE_MAGNETGENERATOR_PLUGIN=$(usex magnetgenerator)
 		-DENABLE_MEDIAPLAYER_PLUGIN=$(usex mediaplayer)
+		-DENABLE_SCANFOLDER_PLUGIN=$(usex scanfolder)
+		-DENABLE_SYNDICATION_PLUGIN=$(usex rss)
 		-DENABLE_SHUTDOWN_PLUGIN=$(usex shutdown)
+		-DENABLE_STATS_PLUGIN=$(usex stats)
 		-DENABLE_UPNP_PLUGIN=$(usex upnp)
 		-DENABLE_ZEROCONF_PLUGIN=$(usex zeroconf)
 	)
 # add back when ported
 # 		-DENABLE_IPFILTER_PLUGIN=$(usex ipfilter)
-# 		-DENABLE_SCRIPTING_PLUGIN=$(usex kross)
-# 		-DENABLE_SYNDICATION_PLUGIN=$(usex rss)
-# 		-DENABLE_SCANFOLDER_PLUGIN=$(usex scanfolder)
 # 		-DENABLE_SEARCH_PLUGIN=$(usex search)
-# 		-DENABLE_STATS_PLUGIN=$(usex stats)
 # 		-DENABLE_WEBINTERFACE_PLUGIN=$(usex webinterface)
 	kde5_src_configure
 }

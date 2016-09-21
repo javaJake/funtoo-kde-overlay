@@ -4,16 +4,14 @@
 
 EAPI=6
 
-FRAMEWORKS_MINIMAL="5.19.0"
-KDE_HANDBOOK="false"
-KDE_PIM_KONTACTPLUGIN="true"
-KDE_TEST="true"
-KMNAME="kdepim"
+KDE_HANDBOOK="forceoptional" # FIXME: Check back for doc in release
+KDE_TEST="forceoptional"
 VIRTUALX_REQUIRED="test"
 inherit kde5
 
-DESCRIPTION="The KDE Address Book"
+DESCRIPTION="Address book application based on KDE Frameworks"
 HOMEPAGE="https://www.kde.org/applications/office/kaddressbook/"
+LICENSE="GPL-2+ handbook? ( FDL-1.2+ )"
 KEYWORDS=""
 
 IUSE="prison"
@@ -25,6 +23,7 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
+	$(add_frameworks_dep kcrash)
 	$(add_frameworks_dep kdelibs4support)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kiconthemes)
@@ -36,46 +35,32 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kxmlgui)
 	$(add_kdeapps_dep akonadi)
-	$(add_kdeapps_dep akonadi-contact)
+	$(add_kdeapps_dep akonadi-contacts)
 	$(add_kdeapps_dep akonadi-search)
 	$(add_kdeapps_dep gpgmepp)
 	$(add_kdeapps_dep grantleetheme)
 	$(add_kdeapps_dep kcontacts)
+	$(add_kdeapps_dep kontactinterface)
 	$(add_kdeapps_dep libgravatar)
 	$(add_kdeapps_dep libkdepim)
+	$(add_kdeapps_dep mailcommon)
 	$(add_kdeapps_dep pimcommon)
 	$(add_qt_dep qtdbus)
 	$(add_qt_dep qtgui)
 	$(add_qt_dep qtprintsupport)
 	$(add_qt_dep qtwidgets)
 	dev-libs/grantlee:5
-	dev-libs/libxslt
 	prison? ( media-libs/prison:5 )
 "
 DEPEND="${COMMON_DEPEND}
-	sys-devel/gettext
-	test? (
-		$(add_kdeapps_dep akonadi 'sqlite,tools')
-		$(add_qt_dep qtsql 'sqlite')
-	)
+	test? ( $(add_kdeapps_dep akonadi 'sqlite,tools') )
 "
 RDEPEND="${COMMON_DEPEND}
-	!<kde-apps/kdepim-15.12.2:5
-	$(add_kdeapps_dep kdepim)
 	$(add_kdeapps_dep kdepim-runtime)
 "
 
-if [[ ${KDE_BUILD_TYPE} = live ]] ; then
-	S="${WORKDIR}/${P}"
-else
-	S="${WORKDIR}/${KMNAME}-${PV}"
-fi
-
 src_configure() {
 	local mycmakeargs=(
-		-DCMAKE_DISABLE_FIND_PACKAGE_KF5GAPI=ON
-		-DCMAKE_DISABLE_FIND_PACKAGE_Qt5Designer=ON
-		-DCMAKE_DISABLE_FIND_PACKAGE_Qt5X11Extras=ON
 		$(cmake-utils_use_find_package prison KF5Prison)
 	)
 

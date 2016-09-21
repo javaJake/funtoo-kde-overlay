@@ -4,14 +4,16 @@
 
 EAPI=6
 
-KDE_TEST="true"
+KDE_TEST="forceoptional-recursive"
+VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="Libraries for messaging functions"
-LICENSE="LGPL-2+"
+LICENSE="GPL-2+ LGPL-2.1+"
 KEYWORDS=""
 IUSE=""
 
+# drop qtgui subslot operator when QT_MINIMAL >= 5.8.0
 COMMON_DEPEND="
 	$(add_frameworks_dep karchive)
 	$(add_frameworks_dep kcodecs)
@@ -20,7 +22,6 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
 	$(add_frameworks_dep kdbusaddons)
-	$(add_frameworks_dep kdewebkit)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kiconthemes)
 	$(add_frameworks_dep kio)
@@ -35,7 +36,6 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kxmlgui)
 	$(add_frameworks_dep sonnet)
 	$(add_kdeapps_dep akonadi)
-	$(add_kdeapps_dep akonadi-contact)
 	$(add_kdeapps_dep akonadi-mime)
 	$(add_kdeapps_dep akonadi-notes)
 	$(add_kdeapps_dep gpgmepp)
@@ -53,39 +53,21 @@ COMMON_DEPEND="
 	$(add_kdeapps_dep libgravatar)
 	$(add_kdeapps_dep libkdepim)
 	$(add_kdeapps_dep libkleo)
-	$(add_qt_dep designer)
-	$(add_qt_dep qtgui)
+	$(add_qt_dep qtgui '' '' '5=')
 	$(add_qt_dep qtnetwork)
 	$(add_qt_dep qtprintsupport)
+	$(add_qt_dep qtwebengine 'widgets')
 	$(add_qt_dep qtwebkit)
 	$(add_qt_dep qtwidgets)
-	dev-libs/grantlee:5
+	>=dev-libs/grantlee-5.1.0:5
 "
 DEPEND="${COMMON_DEPEND}
-	sys-devel/gettext
+	test? ( $(add_kdeapps_dep akonadi-contacts) )
 "
 RDEPEND="${COMMON_DEPEND}
-	!<kde-apps/kdepim-15.08.50:5
-	!kde-apps/messagecomposer:5
-	!kde-apps/messagecore:5
-	!kde-apps/messagelist:5
-	!kde-apps/messageviewer:5
-	!kde-apps/templateparser:5
+	!<kde-apps/kdepim-addons-16.04.50:5
 	!kde-apps/kdepim-common-libs:4
-	!kde-apps/kmail:4
 "
 
-src_prepare() {
-	kde5_src_prepare
-
-	if ! use test ; then
-		sed -i \
-			-e '/add_subdirectory(autotests)/ s/^/#DONT/' \
-			-e '/add_subdirectory(tests)/ s/^/#DONT/' \
-			messagecomposer/CMakeLists.txt \
-			messagecore/CMakeLists.txt \
-			messagelist/CMakeLists.txt \
-			messageviewer/CMakeLists.txt \
-			templateparser/CMakeLists.txt || die
-	fi
-}
+# bug 579630
+RESTRICT="test"

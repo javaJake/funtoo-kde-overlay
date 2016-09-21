@@ -5,13 +5,12 @@
 EAPI=6
 
 CMAKE_MIN_VERSION="3.3"
-KDE_PUNT_BOGUS_DEPS=true
-KDE_TEST=true
+KDE_TEST="forceoptional"
 inherit kde5
 
 DESCRIPTION="Text-based subtitles editor"
 HOMEPAGE="https://github.com/maxrd2/subtitlecomposer"
-EGIT_REPO_URI="git://github.com/maxrd2/${PN}"
+EGIT_REPO_URI="https://github.com/maxrd2/${PN}"
 
 LICENSE="GPL-2"
 KEYWORDS=""
@@ -44,7 +43,7 @@ CDEPEND="
 	)
 "
 RDEPEND="${CDPEEND}
-	!media-video/subtitlecomposer:5
+	!media-video/subtitlecomposer:4
 "
 DEPEND="${CDEPEND}
 	sys-devel/gettext

@@ -4,7 +4,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
 KDE_AUTODEPS="false"
 KDE_DEBUG="false"
 KDE_TEST="false"
@@ -29,6 +29,10 @@ DEPEND="
 	)
 "
 
+RDEPEND="
+	app-arch/libarchive[bzip2]
+"
+
 python_check_deps() {
 	has_version "dev-python/sphinx[${PYTHON_USEDEP}]"
 }
@@ -45,4 +49,12 @@ src_configure() {
 	)
 
 	cmake-utils_src_configure
+}
+
+src_test() {
+	local myctestargs=(
+		-E "(ECMToolchainAndroidTest|KDEInstallDirsTest.relative_or_absolute_usr)"
+	)
+
+	kde5_src_test
 }

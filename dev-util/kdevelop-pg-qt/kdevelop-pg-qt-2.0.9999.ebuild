@@ -6,16 +6,13 @@ EAPI=6
 
 EGIT_BRANCH="2.0"
 KDEBASE="kdevelop"
+KDE_TEST="forceoptional"
 inherit kde5
 
-if [[ ${KDE_BUILD_TYPE} = release ]]; then
-	SRC_URI="mirror://kde/stable/${PN}/${PV}/src/${P}.tar.bz2"
-	KEYWORDS="~amd64 ~x86"
-fi
-
 DESCRIPTION="LL(1) parser generator used mainly by KDevelop language plugins"
-LICENSE="LGPL-2"
+LICENSE="LGPL-2+ LGPL-2.1+"
 IUSE=""
+[[ ${KDE_BUILD_TYPE} = release ]] && KEYWORDS="~amd64 ~x86"
 
 DEPEND="
 	sys-devel/bison

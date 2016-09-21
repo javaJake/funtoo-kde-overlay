@@ -10,15 +10,18 @@ DESCRIPTION="Library for managing partitions"
 HOMEPAGE="https://www.kde.org/applications/system/kdepartitionmanager"
 
 LICENSE="GPL-3"
+SLOT="5/3"
 KEYWORDS=""
 IUSE=""
 
 CDEPEND="
+	$(add_frameworks_dep kauth)
 	$(add_frameworks_dep kcoreaddons)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kiconthemes)
 	$(add_frameworks_dep kio)
 	$(add_frameworks_dep kservice)
+	$(add_frameworks_dep kwidgetsaddons)
 	$(add_qt_dep qtgui)
 	$(add_qt_dep qtwidgets)
 	dev-libs/libatasmart

@@ -4,19 +4,21 @@
 
 EAPI=6
 
-KDE_TEST="true"
+CMAKE_MIN_VERSION="3.2.0"
+KDE_TEST="forceoptional"
 VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="Getting things done application by KDE"
 HOMEPAGE="https://zanshin.kde.org/"
+[[ ${KDE_BUILD_TYPE} != live ]] && SRC_URI="http://files.kde.org/zanshin/${P}.tar.bz2"
 
 LICENSE="|| ( GPL-2 GPL-3 )"
 KEYWORDS=""
 IUSE=""
 
 # FIXME: bundles libkdepim
-RDEPEND="
+COMMON_DEPEND="
 	$(add_frameworks_dep kcodecs)
 	$(add_frameworks_dep kcompletion)
 	$(add_frameworks_dep kconfig)
@@ -41,6 +43,7 @@ RDEPEND="
 	$(add_kdeapps_dep kidentitymanagement)
 	$(add_kdeapps_dep kldap)
 	$(add_kdeapps_dep kmime)
+	$(add_kdeapps_dep kontactinterface)
 	$(add_qt_dep qtdbus)
 	$(add_qt_dep qtdeclarative)
 	$(add_qt_dep qtgui)
@@ -48,6 +51,9 @@ RDEPEND="
 	$(add_qt_dep qtwidgets)
 	dev-libs/boost
 "
-DEPEND="${RDEPEND}
+DEPEND="${COMMON_DEPEND}
+	test? ( $(add_kdeapps_dep akonadi 'tools') )
+"
+RDEPEND="${COMMON_DEPEND}
 	!kde-misc/zanshin:4
 "

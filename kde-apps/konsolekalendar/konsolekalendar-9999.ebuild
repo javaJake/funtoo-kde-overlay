@@ -4,13 +4,13 @@
 
 EAPI=6
 
-KDE_HANDBOOK="true"
-KDE_PUNT_BOGUS_DEPS="true"
-KMNAME="kdepim"
+KDE_HANDBOOK="forceoptional"
+KMNAME="akonadi-calendar-tools"
 inherit kde5
 
-DESCRIPTION="A command line interface to KDE calendars"
+DESCRIPTION="Command line interface to KDE calendars"
 HOMEPAGE+=" https://userbase.kde.org/KonsoleKalendar"
+LICENSE="GPL-2+ handbook? ( FDL-1.2+ )"
 KEYWORDS=""
 
 IUSE=""
@@ -25,34 +25,10 @@ DEPEND="
 	$(add_kdeapps_dep calendarsupport)
 	$(add_kdeapps_dep kcalcore)
 	$(add_kdeapps_dep kcalutils)
-	dev-libs/libxslt
 "
-RDEPEND="${DEPEND}
-	!<kde-apps/kdepim-15.12.2:5
-"
-
-if [[ ${KDE_BUILD_TYPE} = live ]] ; then
-	S="${WORKDIR}/${P}"
-else
-	S="${WORKDIR}/${KMNAME}-${PV}"
-fi
-
-PATCHES=( "${FILESDIR}/kdepim-console.patch" )
+RDEPEND="${DEPEND}"
 
 src_prepare() {
-	mv console/calendarjanitor calendarjanitor || die "Failed to move calendarjanitor"
-	mv console/konsolekalendar konsolekalendar || die "Failed to move konsolekalendar"
-
+	cmake_comment_add_subdirectory calendarjanitor
 	kde5_src_prepare
-}
-
-src_configure() {
-	local mycmakeargs=(
-		-DCMAKE_DISABLE_FIND_PACKAGE_KF5GAPI=ON
-		-DCMAKE_DISABLE_FIND_PACKAGE_KF5Prison=ON
-		-DCMAKE_DISABLE_FIND_PACKAGE_Qt5Designer=ON
-		-DCMAKE_DISABLE_FIND_PACKAGE_Qt5X11Extras=ON
-	)
-
-	kde5_src_configure
 }

@@ -4,29 +4,42 @@
 
 EAPI=6
 
-KDE_LINGUAS="af ar be bg br bs ca ca@valencia cs cy da de el en_GB eo es et eu
-fa fi fr ga gl hi hne hr is it ja kk km lt lv mai mk ms nb nds ne nl nn oc pa
-pl pt_BR pt ro ru se sk sl sr@ijekavianlatin sr@ijekavian sr@Latn sr sv ta tg
-th tr ug uk xh zh_CN zh_HK zh_TW"
-inherit kde4-base
+KDE_TEST="forceoptional"
+inherit kde5
 
-DESCRIPTION="KDE CD ripper and audio encoder frontend"
-HOMEPAGE="http://kde-apps.org/content/show.php?content=107645"
-KEYWORDS=""
+DESCRIPTION="CD ripper and audio encoder frontend based on KDE Frameworks"
+HOMEPAGE="http://www.kde-apps.org/content/show.php?content=107645"
 
 LICENSE="GPL-2 FDL-1.2"
-SLOT="4"
-IUSE="debug"
+KEYWORDS=""
+IUSE=""
 
 DEPEND="
+	$(add_frameworks_dep kcmutils)
+	$(add_frameworks_dep kcompletion)
+	$(add_frameworks_dep kconfig)
+	$(add_frameworks_dep kconfigwidgets)
+	$(add_frameworks_dep kcoreaddons)
+	$(add_frameworks_dep kdelibs4support)
+	$(add_frameworks_dep ki18n)
+	$(add_frameworks_dep kio)
+	$(add_frameworks_dep knotifications)
+	$(add_frameworks_dep knotifyconfig)
+	$(add_frameworks_dep kservice)
+	$(add_frameworks_dep ktextwidgets)
+	$(add_frameworks_dep kwidgetsaddons)
+	$(add_frameworks_dep kxmlgui)
+	$(add_frameworks_dep solid)
 	$(add_kdeapps_dep libkcddb)
 	$(add_kdeapps_dep libkcompactdisc)
+	$(add_qt_dep qtnetwork)
+	$(add_qt_dep qtwidgets)
 	media-libs/libdiscid
+	media-libs/phonon[qt5]
 	>=media-libs/taglib-1.5
 "
 
 RDEPEND="${DEPEND}
-	$(add_kdebase_dep kdelibs 'udev,udisks(+)')
 	$(add_kdeapps_dep audiocd-kio)
 "
 

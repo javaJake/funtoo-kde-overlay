@@ -4,11 +4,11 @@
 
 EAPI=6
 
-KDE_HANDBOOK="true"
+KDE_HANDBOOK="forceoptional"
 inherit kde5
 
 DESCRIPTION="A user friendly IRC Client"
-HOMEPAGE="http://kde.org/applications/internet/konversation/ http://konversation.kde.org"
+HOMEPAGE="https://www.kde.org/applications/internet/konversation/ https://konversation.kde.org"
 
 LICENSE="GPL-2"
 KEYWORDS=""
@@ -22,6 +22,7 @@ DEPEND="
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
+	$(add_frameworks_dep kcrash)
 	$(add_frameworks_dep kdbusaddons)
 	$(add_frameworks_dep kemoticons)
 	$(add_frameworks_dep kglobalaccel)
@@ -40,9 +41,9 @@ DEPEND="
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
 	$(add_frameworks_dep solid)
-	$(add_frameworks_dep sonnet)
 	$(add_qt_dep qtdbus)
 	$(add_qt_dep qtgui)
+	$(add_qt_dep qtnetwork)
 	$(add_qt_dep qtwidgets)
 	$(add_qt_dep qtxml)
 	media-libs/phonon[qt5]

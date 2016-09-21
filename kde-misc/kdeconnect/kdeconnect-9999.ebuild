@@ -40,7 +40,7 @@ DEPEND="
 	x11-libs/libXtst
 	app? ( $(add_frameworks_dep kdeclarative) )
 	telepathy? ( >=net-libs/telepathy-qt-0.9.7[qt5] )
-	wayland? ( $(add_plasma_dep kwayland) )
+	wayland? ( $(add_frameworks_dep kwayland) )
 "
 RDEPEND="${DEPEND}
 	$(add_plasma_dep plasma-workspace)
@@ -72,7 +72,7 @@ pkg_postinst(){
 
 	elog
 	elog "Optional dependency:"
-	elog "sys-fs/sshfs (for 'remote filesystem browser' plugin)"
+	elog "net-fs/sshfs (for 'remote filesystem browser' plugin)"
 	elog
 	elog "The Android .apk file is available via"
 	elog "https://play.google.com/store/apps/details?id=org.kde.kdeconnect_tp"

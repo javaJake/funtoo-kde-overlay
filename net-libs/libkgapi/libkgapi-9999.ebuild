@@ -4,15 +4,15 @@
 
 EAPI=6
 
-KDE_DOXYGEN="true"
 KDE_TEST="true"
 VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="Library for accessing Google calendar and contact resources"
 HOMEPAGE="https://projects.kde.org/projects/extragear/libs/libkgapi"
+[[ ${KDE_BUILD_TYPE} != live ]] && SRC_URI="mirror://kde/stable/${PN}/${PV}/src/${P}.tar.xz"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2+ LGPL-2.1+"
 KEYWORDS=""
 IUSE=""
 
@@ -31,4 +31,4 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
-RESTRICT="test"
+RESTRICT+=" test"

@@ -8,12 +8,13 @@ EGIT_BRANCH="5.0"
 KDEBASE="kdevelop"
 KMNAME="kdev-python"
 PYTHON_COMPAT=( python3_5 )
-inherit kde5 python-any-r1
+inherit kde5 python-single-r1
 
 DESCRIPTION="Python plugin for KDevelop"
 IUSE=""
+[[ ${KDE_BUILD_TYPE} = release ]] && KEYWORDS="~amd64 ~x86"
 
-DEPEND="
+DEPEND="${PYTHON_DEPS}
 	$(add_frameworks_dep kcompletion)
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kcoreaddons)
@@ -29,16 +30,15 @@ DEPEND="
 	$(add_qt_dep qtgui)
 	$(add_qt_dep qtwidgets)
 	dev-util/kdevplatform:5
-	${PYTHON_DEPS}
 "
 RDEPEND="${DEPEND}
 	dev-util/kdevelop:5
 "
 
-RESTRICT="test"
+RESTRICT+=" test"
 
 pkg_setup() {
-	python-any-r1_pkg_setup
+	python-single-r1_pkg_setup
 	kde5_pkg_setup
 }
 

@@ -9,13 +9,14 @@ VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="Library for gravatar integration"
-LICENSE="LGPL-2+"
+LICENSE="GPL-2+"
 KEYWORDS=""
 IUSE=""
 
-COMMON_DEPEND="
+DEPEND="
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep ki18n)
+	$(add_frameworks_dep kio)
 	$(add_frameworks_dep ktextwidgets)
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_kdeapps_dep pimcommon)
@@ -23,10 +24,4 @@ COMMON_DEPEND="
 	$(add_qt_dep qtnetwork)
 	$(add_qt_dep qtwidgets)
 "
-DEPEND="${COMMON_DEPEND}
-	sys-devel/gettext
-"
-RDEPEND="${COMMON_DEPEND}
-	!<kde-apps/kdepim-15.08.50:5
-	!kde-apps/kdepim-common-libs:4
-"
+RDEPEND="${DEPEND}"

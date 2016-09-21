@@ -37,7 +37,6 @@ COMMON_DEPEND="
 	$(add_qt_dep qtsql)
 	$(add_qt_dep qtsvg)
 	$(add_qt_dep qtwidgets)
-	$(add_qt_dep qtxml)
 	egl? ( media-libs/mesa[egl] )
 	!gles2? ( virtual/opengl )
 	X? (
@@ -55,7 +54,7 @@ RDEPEND="${COMMON_DEPEND}
 	!<kde-plasma/kdeplasma-addons-5.4.3-r1
 "
 
-RESTRICT="test"
+RESTRICT+=" test"
 
 src_configure() {
 	local mycmakeargs=(

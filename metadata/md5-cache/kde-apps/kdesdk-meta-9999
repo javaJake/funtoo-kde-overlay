@@ -2,9 +2,9 @@ DEFINED_PHASES=-
 DESCRIPTION=KDE SDK - merge this to pull in all kdesdk-derived packages
 EAPI=6
 HOMEPAGE=https://www.kde.org/applications/development
-IUSE=cvs
+IUSE=cvs nls
 LICENSE=metapackage
-RDEPEND=>=kde-apps/dolphin-plugins-9999 >=kde-apps/kapptemplate-9999 >=kde-apps/kate-9999 >=kde-apps/kcachegrind-9999 >=kde-apps/kde-dev-scripts-9999 >=kde-apps/kde-dev-utils-9999 >=kde-apps/kdesdk-kioslaves-9999 >=kde-apps/kdesdk-thumbnailers-9999 >=kde-apps/kompare-9999 >=kde-apps/libkomparediff2-9999 >=kde-apps/lokalize-9999 >=kde-apps/okteta-9999 >=kde-apps/poxml-9999 >=kde-apps/umbrello-9999 cvs? ( >=kde-apps/cervisia-9999 ) !kde-apps/kdesdk-meta:4
+RDEPEND=>=kde-apps/dolphin-plugins-9999 >=kde-apps/kapptemplate-9999 >=kde-apps/kcachegrind-9999 >=kde-apps/kde-dev-scripts-9999 >=kde-apps/kde-dev-utils-9999 >=kde-apps/kdesdk-kioslaves-9999 >=kde-apps/kdesdk-thumbnailers-9999 >=kde-apps/kompare-9999 >=kde-apps/libkomparediff2-9999 >=kde-apps/lokalize-9999 >=kde-apps/okteta-9999 >=kde-apps/poxml-9999 >=kde-apps/kross-interpreters-9999 >=kde-apps/umbrello-9999 cvs? ( >=kde-apps/cervisia-9999 ) nls? ( >=kde-apps/kde-l10n-14.12.0 >=kde-apps/kde4-l10n-14.12.0 )
 SLOT=5
-_eclasses_=eutils	9d81603248f2ba3ec59124320d123e5e	kde5-functions	a87d1abac63471ad6c7a924a5249a948	kde5-meta-pkg	2597e0668860dcba2196f6403339d4cf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	d513d423d449877e49d99af3f7af7acb	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=b1db445ba49e7284fd13b984667af7c9
+_eclasses_=eutils	b83a2420b796f7c6eff682679d08fe25	kde5-functions	59d60b16fb2817a6e0eddda11a6c31e4	kde5-meta-pkg	c95f4a5ee487f170647a3b1bac69ce7d	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	6198c04daba0e1307bd844df7d37f423	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=2ffb30fd8c773124c9c126af1e984dbd

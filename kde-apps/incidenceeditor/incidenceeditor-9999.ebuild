@@ -5,14 +5,15 @@
 EAPI=6
 
 KDE_TEST="forceoptional"
+VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="Incidence editor for korganizer"
-LICENSE="LGPL-2+"
+LICENSE="GPL-2+"
 KEYWORDS=""
 IUSE=""
 
-COMMON_DEPEND="
+DEPEND="
 	$(add_frameworks_dep kcodecs)
 	$(add_frameworks_dep kcompletion)
 	$(add_frameworks_dep kconfig)
@@ -30,7 +31,7 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kxmlgui)
 	$(add_kdeapps_dep akonadi)
 	$(add_kdeapps_dep akonadi-calendar)
-	$(add_kdeapps_dep akonadi-contact)
+	$(add_kdeapps_dep akonadi-contacts)
 	$(add_kdeapps_dep akonadi-mime)
 	$(add_kdeapps_dep calendarsupport)
 	$(add_kdeapps_dep eventviews)
@@ -38,7 +39,7 @@ COMMON_DEPEND="
 	$(add_kdeapps_dep kcalutils)
 	$(add_kdeapps_dep kcontacts)
 	$(add_kdeapps_dep kdepim-apps-libs)
-	$(add_kdeapps_dep kdgantt2)
+	$(add_kdeapps_dep kdiagram)
 	$(add_kdeapps_dep kidentitymanagement)
 	$(add_kdeapps_dep kldap)
 	$(add_kdeapps_dep kmailtransport)
@@ -48,10 +49,4 @@ COMMON_DEPEND="
 	$(add_qt_dep qtgui)
 	$(add_qt_dep qtwidgets)
 "
-DEPEND="${COMMON_DEPEND}
-	sys-devel/gettext
-"
-RDEPEND="${COMMON_DEPEND}
-	!<kde-apps/kdepim-15.08.50:5
-	!kde-apps/kdepim-common-libs:4
-"
+RDEPEND="${DEPEND}"

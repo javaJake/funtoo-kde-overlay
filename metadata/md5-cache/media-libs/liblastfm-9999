@@ -1,13 +1,13 @@
 DEFINED_PHASES=compile configure install prepare setup test unpack
-DEPEND=qt4? ( dev-qt/qtcore:4 dev-qt/qtdbus:4 ) qt5? ( dev-qt/qtcore:5 dev-qt/qtdbus:5 dev-qt/qtnetwork:5 dev-qt/qtxml:5 ) fingerprint? ( media-libs/libsamplerate sci-libs/fftw:3.0 qt4? ( dev-qt/qtsql:4 ) qt5? ( dev-qt/qtsql:5 ) ) test? ( qt4? ( dev-qt/qttest:4 ) qt5? ( dev-qt/qttest:5 ) ) sys-devel/make >=dev-util/cmake-2.8.12 >=dev-vcs/git-1.8.2.1
+DEPEND=fingerprint? ( media-libs/libsamplerate sci-libs/fftw:3.0 qt4? ( dev-qt/qtsql:4 ) qt5? ( dev-qt/qtsql:5 ) ) qt4? ( dev-qt/qtcore:4[ssl] dev-qt/qtdbus:4 ) qt5? ( dev-qt/qtcore:5 dev-qt/qtdbus:5 dev-qt/qtnetwork:5[ssl] dev-qt/qtxml:5 ) test? ( qt4? ( dev-qt/qttest:4 ) qt5? ( dev-qt/qttest:5 ) ) sys-devel/make >=dev-util/cmake-2.8.12 >=dev-vcs/git-1.8.2.1
 DESCRIPTION=Collection of libraries to integrate Last.fm services
 EAPI=6
 HOMEPAGE=https://github.com/lastfm/liblastfm
-IUSE=fingerprint test +qt4 qt5
+IUSE=fingerprint +qt4 qt5 test
 LICENSE=GPL-3
-RDEPEND=qt4? ( dev-qt/qtcore:4 dev-qt/qtdbus:4 ) qt5? ( dev-qt/qtcore:5 dev-qt/qtdbus:5 dev-qt/qtnetwork:5 dev-qt/qtxml:5 ) fingerprint? ( media-libs/libsamplerate sci-libs/fftw:3.0 qt4? ( dev-qt/qtsql:4 ) qt5? ( dev-qt/qtsql:5 ) ) !<media-libs/lastfmlib-0.4.0
+RDEPEND=fingerprint? ( media-libs/libsamplerate sci-libs/fftw:3.0 qt4? ( dev-qt/qtsql:4 ) qt5? ( dev-qt/qtsql:5 ) ) qt4? ( dev-qt/qtcore:4[ssl] dev-qt/qtdbus:4 ) qt5? ( dev-qt/qtcore:5 dev-qt/qtdbus:5 dev-qt/qtnetwork:5[ssl] dev-qt/qtxml:5 ) !<media-libs/lastfmlib-0.4.0
 REQUIRED_USE=|| ( qt4 qt5 )
 RESTRICT=test
 SLOT=0/0
-_eclasses_=cmake-utils	422bbd1bee2557490177a34dbe0a662b	eutils	9d81603248f2ba3ec59124320d123e5e	flag-o-matic	d270fa247153df66074f795fa42dba3e	git-r3	ef66dfc3db09f327af21cf32f140fb2b	multibuild	742139c87a9fa3766f0c2b155e5522bf	multilib	3972ca401cf7dbb430df9995f5d8d580	toolchain-funcs	d513d423d449877e49d99af3f7af7acb	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
-_md5_=3e5e90427f80a7b0b2f0c1409e3d6adc
+_eclasses_=cmake-utils	f3d38665b0a86e08ba3a5473cdbfafd3	eutils	b83a2420b796f7c6eff682679d08fe25	flag-o-matic	8632fcd33a047954f007dee9a137bdcc	git-r3	00f60a84fc7b499c99edfe99caea9f95	multibuild	742139c87a9fa3766f0c2b155e5522bf	multilib	165fc17c38d1b11dac2008280dab6e80	toolchain-funcs	6198c04daba0e1307bd844df7d37f423	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
+_md5_=9e748bfc0cdc18a5f0fd55c4cb913b91

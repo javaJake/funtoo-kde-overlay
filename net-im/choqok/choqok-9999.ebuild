@@ -7,11 +7,11 @@ EAPI=6
 KDE_HANDBOOK="forceoptional"
 inherit kde5
 
-DESCRIPTION="Free/Open Source micro-blogging client for KDE"
+DESCRIPTION="Free/Open Source micro-blogging client by KDE"
 HOMEPAGE="http://choqok.gnufolks.org/"
 
 LICENSE="GPL-2+"
-IUSE="attica konqueror"
+IUSE="attica konqueror telepathy"
 
 DEPEND="
 	$(add_frameworks_dep kcmutils)
@@ -22,6 +22,7 @@ DEPEND="
 	$(add_frameworks_dep kglobalaccel)
 	$(add_frameworks_dep kguiaddons)
 	$(add_frameworks_dep ki18n)
+	$(add_frameworks_dep kio)
 	$(add_frameworks_dep kjobwidgets)
 	$(add_frameworks_dep knotifications)
 	$(add_frameworks_dep knotifyconfig)
@@ -31,22 +32,20 @@ DEPEND="
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kxmlgui)
 	$(add_frameworks_dep sonnet)
-	$(add_qt_dep qtconcurrent)
 	$(add_qt_dep qtdbus)
 	$(add_qt_dep qtgui)
-	$(add_qt_dep qtnetwork)
-	$(add_qt_dep qtwebkit)
 	$(add_qt_dep qtwidgets)
 	$(add_qt_dep qtxml)
 	app-crypt/qca[qt5]
-	dev-libs/qjson
 	dev-libs/qoauth:5
 	net-libs/telepathy-qt[qt5]
-	attica? ( dev-libs/libattica )
+	attica? ( $(add_frameworks_dep attica) )
 	konqueror? (
 		$(add_frameworks_dep kparts)
 		$(add_frameworks_dep kdewebkit)
+		$(add_qt_dep qtwebkit)
 	)
+	telepathy? ( net-libs/telepathy-qt[qt5] )
 "
 RDEPEND="${DEPEND}
 	!net-im/choqok:4
@@ -59,6 +58,7 @@ src_configure() {
 		$(cmake-utils_use_find_package attica KF5Attica)
 		$(cmake-utils_use_find_package konqueror KF5Parts)
 		$(cmake-utils_use_find_package konqueror KF5WebKit)
+		$(cmake-utils_use_find_package telepathy TelepathyQt5)
 	)
 
 	kde5_src_configure

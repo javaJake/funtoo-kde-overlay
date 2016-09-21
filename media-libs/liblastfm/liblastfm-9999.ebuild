@@ -8,31 +8,31 @@ inherit cmake-utils multibuild git-r3
 
 DESCRIPTION="Collection of libraries to integrate Last.fm services"
 HOMEPAGE="https://github.com/lastfm/liblastfm"
-EGIT_REPO_URI=( "git://github.com/lastfm/${PN}" )
+EGIT_REPO_URI=( "https://github.com/lastfm/${PN}" )
 
 LICENSE="GPL-3"
 KEYWORDS=""
 SLOT="0/0"
-IUSE="fingerprint test +qt4 qt5"
+IUSE="fingerprint +qt4 qt5 test"
 
 REQUIRED_USE="|| ( qt4 qt5 )"
 
 COMMON_DEPEND="
-	qt4? (
-		dev-qt/qtcore:4
-		dev-qt/qtdbus:4
-	)
-	qt5? (
-		dev-qt/qtcore:5
-		dev-qt/qtdbus:5
-		dev-qt/qtnetwork:5
-		dev-qt/qtxml:5
-	)
 	fingerprint? (
 		media-libs/libsamplerate
 		sci-libs/fftw:3.0
 		qt4? ( dev-qt/qtsql:4 )
 		qt5? ( dev-qt/qtsql:5 )
+	)
+	qt4? (
+		dev-qt/qtcore:4[ssl]
+		dev-qt/qtdbus:4
+	)
+	qt5? (
+		dev-qt/qtcore:5
+		dev-qt/qtdbus:5
+		dev-qt/qtnetwork:5[ssl]
+		dev-qt/qtxml:5
 	)
 "
 DEPEND="${COMMON_DEPEND}
@@ -45,7 +45,7 @@ RDEPEND="${COMMON_DEPEND}
 	!<media-libs/lastfmlib-0.4.0
 "
 
-# 1 of 2 is failing, last checked 2012-06-22 / version 1.0.1
+# 1 of 2 (UrlBuilderTest) is failing, last checked version 1.0.9
 RESTRICT="test"
 
 pkg_setup() {
@@ -64,7 +64,7 @@ src_configure() {
 			mycmakeargs+=(-DBUILD_WITH_QT4=ON)
 		fi
 		if [[ ${MULTIBUILD_VARIANT} = qt5 ]]; then
-			mycmakeargs+=(-DBUILD_WITH_OT4=OFF)
+			mycmakeargs+=(-DBUILD_WITH_QT4=OFF)
 		fi
 		cmake-utils_src_configure
 	}

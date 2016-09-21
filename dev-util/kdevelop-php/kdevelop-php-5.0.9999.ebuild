@@ -6,7 +6,9 @@ EAPI=6
 
 EGIT_BRANCH="5.0"
 KDEBASE="kdevelop"
-KDE_DOXYGEN="true"
+KDE_DOC_DIR="docs"
+KDE_HANDBOOK="forceoptional"
+KDE_TEST="forceoptional-recursive"
 KMNAME="kdev-php"
 VIRTUALX_REQUIRED="test"
 inherit kde5
@@ -14,20 +16,17 @@ inherit kde5
 DESCRIPTION="PHP plugin for KDevelop"
 LICENSE="GPL-2 LGPL-2"
 IUSE=""
-
-if [[ ${KDE_BUILD_TYPE} = release ]]; then
-	KEYWORDS="~amd64 ~x86"
-fi
+[[ ${KDE_BUILD_TYPE} = release ]] && KEYWORDS="~amd64 ~x86"
 
 DEPEND="
-	$(add_frameworks_dep kapidox)
+	$(add_frameworks_dep karchive)
 	$(add_frameworks_dep kcmutils)
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
-	$(add_frameworks_dep kdelibs4support)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kio)
+	$(add_frameworks_dep kitemmodels)
 	$(add_frameworks_dep ktexteditor)
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kxmlgui)
@@ -40,10 +39,5 @@ DEPEND="
 "
 RDEPEND="${DEPEND}
 	!dev-util/kdevelop-php-docs
-	dev-util/kdevelop:${SLOT}
+	dev-util/kdevelop:5
 "
-
-src_prepare() {
-	use doc || cmake_comment_add_subdirectory docs
-	kde5_src_prepare
-}

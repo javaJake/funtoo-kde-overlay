@@ -5,11 +5,12 @@
 EAPI=6
 
 KDE_BLOCK_SLOT4="false"
-KDE_DOXYGEN="true"
 KDE_HANDBOOK="forceoptional"
 inherit kde5
 
 DESCRIPTION="KDE Wallet management tool"
+HOMEAGE="https://www.kde.org/applications/system/kwalletmanager
+https://utils.kde.org/projects/kwalletmanager"
 KEYWORDS=""
 IUSE=""
 
@@ -22,15 +23,17 @@ DEPEND="
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
 	$(add_frameworks_dep kdbusaddons)
-	$(add_frameworks_dep kdelibs4support)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kiconthemes)
+	$(add_frameworks_dep kio)
 	$(add_frameworks_dep kitemviews)
+	$(add_frameworks_dep kjobwidgets)
 	$(add_frameworks_dep knotifications)
 	$(add_frameworks_dep kservice)
 	$(add_frameworks_dep ktextwidgets)
 	$(add_frameworks_dep kwallet)
 	$(add_frameworks_dep kwidgetsaddons)
+	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
 	$(add_qt_dep qtdbus)
 	$(add_qt_dep qtgui)
@@ -38,5 +41,6 @@ DEPEND="
 	$(add_qt_dep qtxml)
 "
 RDEPEND="${DEPEND}
-	!kde-apps/kwalletmanager:4[-minimal(-)]
+	!<kde-apps/kwalletmanager-15.04.3-r1:4
+	!kde-base/legacy-icons
 "

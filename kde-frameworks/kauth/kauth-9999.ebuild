@@ -12,12 +12,13 @@ LICENSE="LGPL-2.1+"
 KEYWORDS=""
 IUSE="nls +policykit"
 
+# drop qtgui subslot operator when QT_MINIMAL >= 5.7.0
 RDEPEND="
 	$(add_frameworks_dep kcoreaddons)
-	$(add_qt_dep qtdbus)
+	$(add_qt_dep qtdbus '' '' '5=')
 	$(add_qt_dep qtgui)
 	$(add_qt_dep qtwidgets)
-	policykit? ( || ( $(add_frameworks_dep polkit-qt) sys-auth/polkit-qt[qt5] ) )
+	policykit? ( sys-auth/polkit-qt[qt5] )
 "
 DEPEND="${RDEPEND}
 	nls? ( $(add_qt_dep linguist-tools) )

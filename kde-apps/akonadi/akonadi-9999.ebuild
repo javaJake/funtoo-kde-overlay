@@ -4,28 +4,28 @@
 
 EAPI=6
 
-KDE_DOXYGEN=true
-KDE_TEST=true
-VIRTUALDBUS_TEST=true
-VIRTUALX_REQUIRED=test
+KDE_DESIGNERPLUGIN="true"
+KDE_TEST="forceoptional"
+VIRTUALDBUS_TEST="true"
+VIRTUALX_REQUIRED="test"
 inherit kde5
 
 DESCRIPTION="Storage service for PIM data and libraries for PIM apps"
 HOMEPAGE="https://pim.kde.org/akonadi"
 KEYWORDS=""
-LICENSE="LGPL-2.1"
-IUSE="designer +mysql postgres sqlite tools xml"
+LICENSE="LGPL-2.1+"
+IUSE="+mysql postgres sqlite tools xml"
 
 REQUIRED_USE="|| ( sqlite mysql postgres ) test? ( tools )"
 
+# drop qtgui subslot operator when QT_MINIMAL >= 5.7.0
 COMMON_DEPEND="
 	$(add_frameworks_dep kcompletion)
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
+	$(add_frameworks_dep kcrash)
 	$(add_frameworks_dep kdbusaddons)
-	$(add_frameworks_dep kdesignerplugin)
-	$(add_frameworks_dep kguiaddons)
 	$(add_frameworks_dep ki18n)
 	$(add_frameworks_dep kiconthemes)
 	$(add_frameworks_dep kio)
@@ -35,13 +35,12 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kwindowsystem)
 	$(add_frameworks_dep kxmlgui)
 	$(add_qt_dep qtdbus)
-	$(add_qt_dep qtgui)
+	$(add_qt_dep qtgui '' '' '5=')
 	$(add_qt_dep qtnetwork)
 	$(add_qt_dep qtsql 'mysql?,postgres?')
 	$(add_qt_dep qtwidgets)
 	$(add_qt_dep qtxml)
 	x11-misc/shared-mime-info
-	designer? ( $(add_qt_dep designer) )
 	sqlite? ( dev-db/sqlite:3 )
 	tools? ( xml? ( dev-libs/libxml2 ) )
 "
@@ -55,13 +54,12 @@ RDEPEND="${COMMON_DEPEND}
 	postgres? ( dev-db/postgresql )
 	!app-office/akonadi-server
 	!kde-apps/kdepimlibs
-	!kde-apps/libakonadi
 "
 
 # some akonadi tests time out, that probably needs more work as it's ~700 tests
 RESTRICT="test"
 
-PATCHES=( "${FILESDIR}/${PN}-15.12-mysql56-crash.patch" )
+PATCHES=( "${FILESDIR}/${PN}-16.12.0-mysql56-crash.patch" )
 
 pkg_setup() {
 	# Set default storage backend in order: MySQL, SQLite PostgreSQL
@@ -96,8 +94,6 @@ pkg_setup() {
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_find_package designer Qt5Designer)
-		$(cmake-utils_use_find_package xml LibXml2)
 		-DAKONADI_BUILD_QSQLITE=$(usex sqlite)
 		-DBUILD_TOOLS=$(usex tools)
 		-DKDE_INSTALL_USE_QT_SYS_PATHS=ON

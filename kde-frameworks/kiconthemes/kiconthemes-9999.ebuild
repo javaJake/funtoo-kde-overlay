@@ -13,6 +13,7 @@ KEYWORDS=""
 IUSE=""
 
 RDEPEND="
+	$(add_frameworks_dep karchive)
 	$(add_frameworks_dep kconfig)
 	$(add_frameworks_dep kconfigwidgets)
 	$(add_frameworks_dep kcoreaddons)
@@ -26,4 +27,4 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-RESTRICT="test" # bug 574770
+RESTRICT+=" test" # bug 574770
