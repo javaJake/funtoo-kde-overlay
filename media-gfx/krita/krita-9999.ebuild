@@ -31,7 +31,7 @@ COMMON_DEPEND="
 	$(add_frameworks_dep kxmlgui)
 	$(add_qt_dep qtconcurrent)
 	$(add_qt_dep qtdbus)
-	$(add_qt_dep qtgui)
+	$(add_qt_dep qtgui '-gles2')
 	$(add_qt_dep qtnetwork)
 	$(add_qt_dep qtprintsupport)
 	$(add_qt_dep qtsvg)
@@ -69,6 +69,11 @@ DEPEND="${COMMON_DEPEND}
 RDEPEND="${COMMON_DEPEND}
 	!app-office/calligra:4[calligra_features_krita]
 "
+
+PATCHES=(
+	"${FILESDIR}/${PN}-3.0.1-breeze-collisions.patch"
+	"${FILESDIR}/${PN}-3.0.1-vc-cxxflags.patch"
+)
 
 src_configure() {
 	local mycmakeargs=(
